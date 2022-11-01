@@ -1,0 +1,33 @@
+# /etc/conf.d/gspcoind: config file for /etc/init.d/gspcoind
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/gspcoincore/gspcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/gspcoind"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/gspcoind.pid"
+
+# Where to write gspcoind data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/gspcoind"
+
+# User and group to own gspcoind process
+#BITCOIND_USER="gspcoincore"
+#BITCOIND_GROUP="gspcoincore"
+
+# Path to gspcoind executable
+#BITCOIND_BIN="/usr/bin/gspcoind"
+
+# Nice value to run gspcoind under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BITCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for gspcoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BITCOIND_SIGTERM_TIMEOUT=60

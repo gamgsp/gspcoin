@@ -1,0 +1,25 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="ar">locale/gspcoin_ar.qm</file>
+        <file alias="bg">locale/gspcoin_bg.qm</file>
+        <file alias="de">locale/gspcoin_de.qm</file>
+        <file alias="en">locale/gspcoin_en.qm</file>
+        <file alias="es">locale/gspcoin_es.qm</file>
+        <file alias="fi">locale/gspcoin_fi.qm</file>
+        <file alias="fr">locale/gspcoin_fr.qm</file>
+        <file alias="it">locale/gspcoin_it.qm</file>
+        <file alias="ja">locale/gspcoin_ja.qm</file>
+        <file alias="ko">locale/gspcoin_ko.qm</file>
+        <file alias="nl">locale/gspcoin_nl.qm</file>
+        <file alias="pl">locale/gspcoin_pl.qm</file>
+        <file alias="pt">locale/gspcoin_pt.qm</file>
+        <file alias="ro">locale/gspcoin_ro.qm</file>
+        <file alias="ru">locale/gspcoin_ru.qm</file>
+        <file alias="sk">locale/gspcoin_sk.qm</file>
+        <file alias="th">locale/gspcoin_th.qm</file>
+        <file alias="tr">locale/gspcoin_tr.qm</file>
+        <file alias="vi">locale/gspcoin_vi.qm</file>
+        <file alias="zh_CN">locale/gspcoin_zh_CN.qm</file>
+        <file alias="zh_TW">locale/gspcoin_zh_TW.qm</file>
+    </qresource>
+</RCC>

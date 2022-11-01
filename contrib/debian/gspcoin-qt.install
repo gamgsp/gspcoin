@@ -1,0 +1,6 @@
+usr/local/bin/gspcoin-qt usr/bin
+share/pixmaps/gspcoin32.xpm usr/share/pixmaps
+share/pixmaps/gspcoin16.xpm usr/share/pixmaps
+share/pixmaps/gspcoin128.png usr/share/pixmaps
+debian/gspcoin-qt.desktop usr/share/applications
+debian/gspcoin-qt.protocol usr/share/kde4/services/

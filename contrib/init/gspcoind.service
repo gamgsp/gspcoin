@@ -1,0 +1,22 @@
+[Unit]
+Description=Gspcoin's distributed currency daemon
+After=network.target
+
+[Service]
+User=gspcoincore
+Group=gspcoincore
+
+Type=forking
+PIDFile=/var/lib/gspcoind/gspcoind.pid
+ExecStart=/usr/bin/gspcoind -daemon -pid=/var/lib/gspcoind/gspcoind.pid \
+-conf=/etc/gspcoincore/gspcoin.conf -datadir=/var/lib/gspcoind -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
