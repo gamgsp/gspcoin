@@ -1,14 +1,11 @@
 Gspcoin Core v2.5
 ===========================
+Cryptocurrency that links to modern Digital Advertising and Marketing.
 
 What is Gspcoin?
-
-Gspcoin is a decentralized financial technology accessible to everyone that is fast, reliable and
-secure with negligible transaction costs. Gspcoin has its own blockchain, which is a fork of
-Raptoreum codebase with ASIC resistant POW algorithm and consensus ensuring Smartnodes
-which make the network immune to 51% attacks. Gspcoin coins can be mined on both CPU
-and GPU. Gspcoin cares about privacy and has an integrated CoinJoin mechanism that allows
-to hide the balance directly in the wallet.
+GSP Coin is a project that aims to build a new ecosystem for digital and mobile advertising, allowing advertisers to create and manage campaigns through our platforms like Global Ads Media | Global Social Post | Global Smtp Mail  with complete automation. A revolutionary Real Time Bidding system allows advertisers to gain most of required web traffic and track the result of their investments in a completely automated fashion. The GSP Coin token will serve as the platform’s internal currency and will be used within the ecosystem.
+Gspcoin is a decentralized financial technology accessible to everyone that is fast, reliable and secure with negligible transaction costs. 
+Gspcoin has its own blockchain, which is a fork of Raptoreum codebase with ASIC resistant POW algorithm and consensus ensuring Smartnodes which make the network immune to 51% attacks. Gspcoin coins can be mined on both CPU and GPU. Gspcoin cares about privacy and has an integrated CoinJoin mechanism that allows to hide the balance directly in the wallet.
 
 Problems Gspcoin attempts to solve
 
@@ -33,7 +30,7 @@ that is usually accessible only to rich investors. That is why everyone can earn
 modest initial investment by deploying Smartnodes and contributing to the blockchain
 stability and security.
 
-The roadmap to our goals can be found at our official webpage https://gspcoin.org/
+The roadmap to our goals can be found at our official webpage https://coin.globalsocialpost.com
 
 License
 -------
