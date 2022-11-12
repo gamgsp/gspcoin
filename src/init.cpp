@@ -646,8 +646,8 @@ void SetupServerArgs()
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/Raptor3um/gspcoin>";
-    const std::string URL_WEBSITE = "<https://gspcoin.com>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/gamgsp/gspcoin>";
+    const std::string URL_WEBSITE = "<https://coin.globalsocialpost.com>";
 
     return CopyrightHolders(_("Copyright (C)"), 2014, COPYRIGHT_YEAR) + "\n" +
            "\n" +
