@@ -477,7 +477,7 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 210240; // Note: actual number of blocks per calendar year with DGW v3 is ~200700 (for example 449750 - 249050)
-        consensus.nSmartnodePaymentsStartBlock = 2500; //
+        consensus.nSmartnodePaymentsStartBlock = 5000; //
         consensus.nSmartnodePaymentsIncreaseBlock = 158000; // actual historical value
         consensus.nSmartnodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
         consensus.nInstantSendConfirmationsRequired = 6;
@@ -578,19 +578,19 @@ public:
         std::vector<FounderRewardStructure> rewardStructures = {  {INT_MAX, 2} };
         consensus.nFounderPayment = FounderPayment(rewardStructures, 220);
         consensus.nCollaterals = SmartnodeCollaterals(
-          { {100000, 2500000 * COIN},
-            {200000, 2600000 * COIN},
-            {300000, 2700000 * COIN},
-            {400000, 2800000 * COIN},
-            {500000, 2900000 * COIN},
-            {600000, 3000000 * COIN},
-            {700000, 3100000 * COIN},
-            {800000, 3200000 * COIN},
-            {900000, 3300000 * COIN},
-            {1000000, 3400000 * COIN},
-            {INT_MAX, 3500000 * COIN}
+          { {100000, 1000000 * COIN},
+            {200000, 1100000 * COIN},
+            {300000, 1200000 * COIN},
+            {400000, 1300000 * COIN},
+            {500000, 1400000 * COIN},
+            {600000, 1500000 * COIN},
+            {700000, 1600000 * COIN},
+            {800000, 1700000 * COIN},
+            {900000, 1800000 * COIN},
+            {1000000, 1900000 * COIN},
+            {INT_MAX, 2000000 * COIN}
           },
-          { {220, 0}, {INT_MAX, 34} }
+          { {5000, 0}, {INT_MAX, 34} }
         );
         //FutureRewardShare defaultShare(0.8,0.2,0.0);
         consensus.nFutureRewardShare = Consensus::FutureRewardShare(0.8,0.2,0.0);
