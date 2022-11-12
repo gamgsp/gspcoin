@@ -46,6 +46,9 @@ modest initial investment by deploying Smartnodes and contributing to the blockc
 stability and security.
 
 The roadmap to our goals can be found at our official webpage https://coin.globalsocialpost.com
+Discord- https://discord.gg/Anh2sr4txV
+Telegram- https://t.me/gspc_gspcoin
+Twitter- https://twitter.com/gspcoin
 
 License
 -------
