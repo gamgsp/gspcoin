@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2020 The Dash Core developers
-// Copyright (c) 2020-2022 The Gspcoin developers
+// Copyright (c) 2020-2022 The Gsp Coin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -116,7 +116,7 @@ public:
     void Stop() const override {}
     void Close() const override {}
 
-    // Gspcoin Specific WalletInitInterface InitCoinJoinSettings
+    // Gsp Coin Specific WalletInitInterface InitCoinJoinSettings
     void AutoLockSmartnodeCollaterals() const override {}
     void InitCoinJoinSettings() const override {}
     void InitKeePass() const override {}
@@ -606,7 +606,7 @@ void SetupServerArgs()
     gArgs.AddArg("-llmq-data-recovery=<n>", strprintf("Enable automated quorum data recovery (default: %u)", llmq::DEFAULT_ENABLE_QUORUM_DATA_RECOVERY), false, OptionsCategory::SMARTNODE);
     gArgs.AddArg("-llmq-qvvec-sync=<quorum_name>:<mode>", strprintf("Defines from which LLMQ type the smartnode should sync quorum verification vectors. Can be used multiple times with different LLMQ types. <mode>: %d (sync always from all quorums of the type defined by <quorum_name>), %d (sync from all quorums of the type defined by <quorum_name> if a member of any of the quorums)", (int32_t)llmq::QvvecSyncMode::Always, (int32_t)llmq::QvvecSyncMode::OnlyIfTypeMember), false, OptionsCategory::SMARTNODE);
     gArgs.AddArg("-smartnodeblsprivkey=<hex>", "Set the smartnode BLS private key and enable the client to act as a smartnode", false, OptionsCategory::SMARTNODE);
-    gArgs.AddArg("-platform-user=<user>", "Set the username for the \"platform user\", a restricted user intended to be used by Gspcoin Platform, to the specified username.", false, OptionsCategory::SMARTNODE);
+    gArgs.AddArg("-platform-user=<user>", "Set the username for the \"platform user\", a restricted user intended to be used by Gsp Coin Platform, to the specified username.", false, OptionsCategory::SMARTNODE);
 
     gArgs.AddArg("-acceptnonstdtxn", strprintf("Relay and mine \"non-standard\" transactions (%sdefault: %u)", "testnet/regtest only; ", !testnetChainParams->RequireStandard()), true, OptionsCategory::NODE_RELAY);
     gArgs.AddArg("-dustrelayfee=<amt>", strprintf("Fee rate (in %s/kB) used to defined dust, the value of an output such that it will cost more than its value in fees at this fee rate to spend it. (default: %s)", CURRENCY_UNIT, FormatMoney(DUST_RELAY_TX_FEE)), true, OptionsCategory::NODE_RELAY);
@@ -909,7 +909,7 @@ void PeriodicStats()
 }
 
 /** Sanity checks
- *  Ensure that Gspcoin Core is running in a usable environment with all
+ *  Ensure that Gsp Coin Core is running in a usable environment with all
  *  necessary library support.
  */
 bool InitSanityCheck(void)
