@@ -112,7 +112,7 @@ stability and security.
 <br>3. Coinpaprika
 <br>Launching Global Smtp Mail which is still in development.
 <br>Activating payment mode exclusive to GSPC on all our business platforms mentioned below instead of USD.
-<br>Global Ads Media | Global Social Post | Global Smtp Mail</br>
+<br><a href="https://globaladsmedia.us" target="_blank">Global Ads Media</a> | Global Social Post | Global Smtp Mail</br>
 
 License
 -------
