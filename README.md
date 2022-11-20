@@ -1,8 +1,8 @@
 GSP Coin Core v2.5
 ===========================
-GSP Coin- Cryptocurrency that links to modern Digital Advertising and Marketing.
-Website: https://coin.globalsocialpost.com/
-Official Whitepaper: https://coin.globalsocialpost.com/gspc-whitepaper.pdf
+<p>GSP Coin- Cryptocurrency that links to modern Digital Advertising and Marketing.</p>
+<p>Website: https://coin.globalsocialpost.com/</p>
+<p>Official Whitepaper: https://coin.globalsocialpost.com/gspc-whitepaper.pdf</p>
 
 What is GSP Coin?
 
@@ -47,8 +47,8 @@ that is usually accessible only to rich investors. That is why everyone can earn
 modest initial investment by deploying Smartnodes and contributing to the blockchain
 stability and security.
 
-Coin Distribution
-Coin Symbol: GSPC
+<p>Coin Distribution</p>
+<p>Coin Symbol: GSPC</p>
 Total Coin Distribution: 6B (6,000,000,000)
 Premined- 0.833333%
 Algorithm: Ghostrider
