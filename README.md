@@ -1,6 +1,8 @@
 GSP Coin Core v2.5
 ===========================
-Cryptocurrency that links to modern Digital Advertising and Marketing.
+GSP Coin- Cryptocurrency that links to modern Digital Advertising and Marketing.
+Website: https://coin.globalsocialpost.com/
+Official Whitepaper: https://coin.globalsocialpost.com/gspc-whitepaper.pdf
 
 What is GSP Coin?
 
@@ -45,10 +47,72 @@ that is usually accessible only to rich investors. That is why everyone can earn
 modest initial investment by deploying Smartnodes and contributing to the blockchain
 stability and security.
 
-The roadmap to our goals can be found at our official webpage https://coin.globalsocialpost.com
+Coin Distribution
+Coin Symbol: GSPC
+Total Coin Distribution: 6B (6,000,000,000)
+Premined- 0.833333%
+Algorithm: Ghostrider
+Initial Block Reward: 2525
+Average Block Time: 240 seconds / 4 minutes
+Smartnode Rewards Activation: 5000 Blocks + 10 active Smartnodes
+Block Reward Distribution:
+Miner- 64%
+Smartnode- 34%
+Promotional and Community rewards- 2%
+Below mentioned is changes in rewards distribution every 100k blocks:
+Every 100k blocks rewards will increase by 100 until we reach 1100000 blocks.
+After 1100000 blocks every 100k blocks rewards will start decreasing by 100 till 2000000 blocks.
+Smartnode Collateral will start from 1m (1,000,000) from block 5000 till 100000, similarly every 100k blocks collateral will increase by 100k till 1100000 blocks. After that it will remain constant till the last block 2000000.
+
+Wallet Download: https://github.com/gamgsp/gspcoin/releases
+
+Github Source: https://github.com/gamgsp/gspcoin
+
+Explorer: https://explorer.globalsocialpost.com/
+
+Exchanges:
+Bitoreum Exchange
+GSPC/USDT - https://www.bitoreum.exchange/trading/gspcusdt
+GSPC/BTC - https://www.bitoreum.exchange/trading/gspcbtc
+GSPC/BTRM - https://www.bitoreum.exchange/trading/gspcbtrm
+GSPC/LTC - https://www.bitoreum.exchange/trading/gspcltc
+GSPC/DOGE - https://www.bitoreum.exchange/trading/gspcdoge
+Exbitron Exchange
+GSPC/USDT- https://www.exbitron.com/trading/gspcusdt
+GSPC/BTC- https://www.exbitron.com/trading/gspcbtc
+GSPC/EXTO- https://www.exbitron.com/trading/gspcexto
+
+Mining Pool:
+https://crimson-pool.com/?#gspc
+
+Mining Pool Stats:
+https://miningpoolstats.stream/gspcoin
+
+Follow Us:
+Twitter- https://twitter.com/gspcoin
 Discord- https://discord.gg/Anh2sr4txV
 Telegram- https://t.me/gspc_gspcoin
-Twitter- https://twitter.com/gspcoin
+
+ROADMAP
+Q4 2022
+Generate Genesis Block.
+Developing Wallets (Linux, Windows, MacOs)
+Launch Explorer.
+Discoverable on Social Media and Bitcointalk.
+Activating Mining Pools.
+Getting Listed on Exchanges.
+Launch Whitepaper.
+Android Wallet.
+
+
+Q1 2023
+Getting listed on:
+1. Coinmarketcap
+2. Coingecko
+3. Coinpaprika
+Launching Global Smtp Mail which is still in development.
+Activating payment mode exclusive to GSPC on all our business platforms mentioned below instead of USD.
+Global Ads Media | Global Social Post | Global Smtp Mail
 
 License
 -------
