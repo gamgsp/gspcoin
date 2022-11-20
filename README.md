@@ -47,8 +47,8 @@ that is usually accessible only to rich investors. That is why everyone can earn
 modest initial investment by deploying Smartnodes and contributing to the blockchain
 stability and security.
 
-<p>Coin Distribution</p>
-<br>Coin Symbol: GSPC</br>
+<br>Coin Distribution</br>
+<br>Coin Symbol: GSPC
 <br>Total Coin Distribution: 6B (6,000,000,000)
 <br>Premined- 0.833333%
 <br>Algorithm: Ghostrider
@@ -64,55 +64,55 @@ stability and security.
 <br>After 1100000 blocks every 100k blocks rewards will start decreasing by 100 till 2000000 blocks.
 <br>Smartnode Collateral will start from 1m (1,000,000) from block 5000 till 100000, similarly every 100k blocks collateral will increase by 100k till 1100000 blocks. After that it will remain constant till the last block 2000000.</br>
 
-Wallet Download: https://github.com/gamgsp/gspcoin/releases
+<br>Wallet Download: https://github.com/gamgsp/gspcoin/releases</br>
 
-Github Source: https://github.com/gamgsp/gspcoin
+<br>Github Source: https://github.com/gamgsp/gspcoin</br>
 
-Explorer: https://explorer.globalsocialpost.com/
+<br>Explorer: https://explorer.globalsocialpost.com/</br>
 
-Exchanges:
-Bitoreum Exchange
-GSPC/USDT - https://www.bitoreum.exchange/trading/gspcusdt
-GSPC/BTC - https://www.bitoreum.exchange/trading/gspcbtc
-GSPC/BTRM - https://www.bitoreum.exchange/trading/gspcbtrm
-GSPC/LTC - https://www.bitoreum.exchange/trading/gspcltc
-GSPC/DOGE - https://www.bitoreum.exchange/trading/gspcdoge
-Exbitron Exchange
-GSPC/USDT- https://www.exbitron.com/trading/gspcusdt
-GSPC/BTC- https://www.exbitron.com/trading/gspcbtc
-GSPC/EXTO- https://www.exbitron.com/trading/gspcexto
+<br>Exchanges:
+<br>Bitoreum Exchange
+<br>GSPC/USDT - https://www.bitoreum.exchange/trading/gspcusdt
+<br>GSPC/BTC - https://www.bitoreum.exchange/trading/gspcbtc
+<br>GSPC/BTRM - https://www.bitoreum.exchange/trading/gspcbtrm
+<br>GSPC/LTC - https://www.bitoreum.exchange/trading/gspcltc
+<br>GSPC/DOGE - https://www.bitoreum.exchange/trading/gspcdoge
+<br>Exbitron Exchange
+<br>GSPC/USDT- https://www.exbitron.com/trading/gspcusdt
+<br>GSPC/BTC- https://www.exbitron.com/trading/gspcbtc
+<br>GSPC/EXTO- https://www.exbitron.com/trading/gspcexto</br>
 
-Mining Pool:
-https://crimson-pool.com/?#gspc
+<br>Mining Pool:
+<br>https://crimson-pool.com/?#gspc</br>
 
-Mining Pool Stats:
-https://miningpoolstats.stream/gspcoin
+<br>Mining Pool Stats:
+<br>https://miningpoolstats.stream/gspcoin</br>
 
-Follow Us:
-Twitter- https://twitter.com/gspcoin
-Discord- https://discord.gg/Anh2sr4txV
-Telegram- https://t.me/gspc_gspcoin
+<br>Follow Us:
+<br>Twitter- https://twitter.com/gspcoin
+<br>Discord- https://discord.gg/Anh2sr4txV
+<br>Telegram- https://t.me/gspc_gspcoin</br>
 
-ROADMAP
-Q4 2022
-Generate Genesis Block.
-Developing Wallets (Linux, Windows, MacOs)
-Launch Explorer.
-Discoverable on Social Media and Bitcointalk.
-Activating Mining Pools.
-Getting Listed on Exchanges.
-Launch Whitepaper.
-Android Wallet.
+<br>ROADMAP
+<br>Q4 2022
+<br>Generate Genesis Block.
+<br>Developing Wallets (Linux, Windows, MacOs)
+<br>Launch Explorer.
+<br>Discoverable on Social Media and Bitcointalk.
+<br>Activating Mining Pools.
+<br>Getting Listed on Exchanges.
+<br>Launch Whitepaper.
+<br>Android Wallet.</br>
 
 
-Q1 2023
-Getting listed on:
-1. Coinmarketcap
-2. Coingecko
-3. Coinpaprika
-Launching Global Smtp Mail which is still in development.
-Activating payment mode exclusive to GSPC on all our business platforms mentioned below instead of USD.
-Global Ads Media | Global Social Post | Global Smtp Mail
+<br>Q1 2023
+<br>Getting listed on:
+<br>1. Coinmarketcap
+<br>2. Coingecko
+<br>3. Coinpaprika
+<br>Launching Global Smtp Mail which is still in development.
+<br>Activating payment mode exclusive to GSPC on all our business platforms mentioned below instead of USD.
+<br>Global Ads Media | Global Social Post | Global Smtp Mail</br>
 
 License
 -------
