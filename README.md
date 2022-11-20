@@ -48,21 +48,21 @@ modest initial investment by deploying Smartnodes and contributing to the blockc
 stability and security.
 
 <p>Coin Distribution</p>
-<p>Coin Symbol: GSPC</p>
-Total Coin Distribution: 6B (6,000,000,000)
-Premined- 0.833333%
-Algorithm: Ghostrider
-Initial Block Reward: 2525
-Average Block Time: 240 seconds / 4 minutes
-Smartnode Rewards Activation: 5000 Blocks + 10 active Smartnodes
-Block Reward Distribution:
-Miner- 64%
-Smartnode- 34%
-Promotional and Community rewards- 2%
-Below mentioned is changes in rewards distribution every 100k blocks:
-Every 100k blocks rewards will increase by 100 until we reach 1100000 blocks.
-After 1100000 blocks every 100k blocks rewards will start decreasing by 100 till 2000000 blocks.
-Smartnode Collateral will start from 1m (1,000,000) from block 5000 till 100000, similarly every 100k blocks collateral will increase by 100k till 1100000 blocks. After that it will remain constant till the last block 2000000.
+<br>Coin Symbol: GSPC</br>
+<br>Total Coin Distribution: 6B (6,000,000,000)
+<br>Premined- 0.833333%
+<br>Algorithm: Ghostrider
+<br>Initial Block Reward: 2525
+<br>Average Block Time: 240 seconds / 4 minutes
+<br>Smartnode Rewards Activation: 5000 Blocks + 10 active Smartnodes
+<br>Block Reward Distribution:
+<br>Miner- 64%
+<br>Smartnode- 34%
+<br>Promotional and Community rewards- 2%
+<br>Below mentioned is changes in rewards distribution every 100k blocks:
+<br>Every 100k blocks rewards will increase by 100 until we reach 1100000 blocks.
+<br>After 1100000 blocks every 100k blocks rewards will start decreasing by 100 till 2000000 blocks.
+<br>Smartnode Collateral will start from 1m (1,000,000) from block 5000 till 100000, similarly every 100k blocks collateral will increase by 100k till 1100000 blocks. After that it will remain constant till the last block 2000000.</br>
 
 Wallet Download: https://github.com/gamgsp/gspcoin/releases
 
