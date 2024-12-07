@@ -2,7 +2,7 @@ GSP Coin Core v2.5
 ===========================
 <p>GSP Coin- Cryptocurrency that links to modern Digital Advertising and Marketing.</p>
 <p>Website: https://gspcoin.us/</p>
-<p>Official Whitepaper: https://gspcoin.us/gspc-whitepaper.pdf</p>
+<p>Official Whitepaper: https://gspcoin.us/gspc-whitepaper.pdf https://gspcoin.us/whitepaper/</p>
 
 What is GSP Coin?
 
