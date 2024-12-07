@@ -80,9 +80,7 @@ stability and security.
 <br>GSPC/LTC - https://www.bitoreum.exchange/trading/gspcltc
 <br>GSPC/DOGE - https://www.bitoreum.exchange/trading/gspcdoge
 <br>Exbitron Exchange
-<br>GSPC/USDT- https://www.exbitron.com/trading/gspcusdt
-<br>GSPC/BTC- https://www.exbitron.com/trading/gspcbtc
-<br>GSPC/EXTO- https://www.exbitron.com/trading/gspcexto</br>
+<br>GSPC/USDT- https://app.exbitron.com/exchange/?market=GSPC-USDT
 
 <br>Mining Pool:
 <br>https://crimson-pool.com/?#gspc</br>
