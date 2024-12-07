@@ -1,8 +1,8 @@
 GSP Coin Core v2.5
 ===========================
 <p>GSP Coin- Cryptocurrency that links to modern Digital Advertising and Marketing.</p>
-<p>Website: https://coin.globalsocialpost.com/</p>
-<p>Official Whitepaper: https://coin.globalsocialpost.com/gspc-whitepaper.pdf</p>
+<p>Website: https://gspcoin.us/</p>
+<p>Official Whitepaper: https://gspcoin.us/gspc-whitepaper.pdf</p>
 
 What is GSP Coin?
 
@@ -71,6 +71,8 @@ stability and security.
 <br>Explorer: https://explorer.globalsocialpost.com/</br>
 
 <br>Exchanges:
+<br>Xeggex Exchange
+<br>GSPC/USDT - https://xeggex.com/market/GSPC_USDT
 <br>Bitoreum Exchange
 <br>GSPC/USDT - https://www.bitoreum.exchange/trading/gspcusdt
 <br>GSPC/BTC - https://www.bitoreum.exchange/trading/gspcbtc
@@ -109,7 +111,7 @@ stability and security.
 <br>Getting listed on:
 <br>1. Coinmarketcap
 <br>2. Coingecko
-<br>3. Coinpaprika
+<br>3. Coinpaprika - https://coinpaprika.com/coin/gspc-gsp-coin
 <br>Launching Global Smtp Mail which is still in development.
 <br>Activating payment mode exclusive to GSPC on all our business platforms mentioned below instead of USD.
 <br><a href="https://globaladsmedia.us" target="_blank">Global Ads Media</a> | <a href="https://globalsocialpost.com" target="_blank">Global Social Post</a> | <a href="https://globalsmtpmail.com" target="_blank">Global SMTP Mail</a></br>
