@@ -68,7 +68,8 @@ stability and security.
 
 <br>Github Source: https://github.com/gamgsp/gspcoin</br>
 
-<br>Explorer: https://explorer.globalsocialpost.com/</br>
+<br>Explorer: <br>https://explorer.gspcoin.us/
+              <br>https://explorer.globalsocialpost.com/</br>
 
 <br>Exchanges:
 <br>Xeggex Exchange
