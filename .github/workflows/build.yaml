@@ -207,7 +207,9 @@ jobs:
       - name: Install Required Packages
         run: |
           sudo apt-get update -y
-          sudo apt-get install curl libcurl4-openssl-dev build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake -y
+          sudo apt-get install curl libcurl4-openssl-dev build-essential libtool autotools-dev libboost-all-dev automake pkg-config python3 bsdmainutils cmake -y
+          sudo apt-get install -y libssl-dev libevent-dev libzmq3-dev libminiupnpc-dev libsodium-dev libgmp-dev
+
 
       - name: Build Depends
         run: |
@@ -344,6 +346,10 @@ jobs:
       - name: Install Required Packages
         run: |
           brew install automake libtool pkg-config librsvg libnatpmp python
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
           pip3 install ds_store mac_alias
           pip3 install -U pip setuptools
 
