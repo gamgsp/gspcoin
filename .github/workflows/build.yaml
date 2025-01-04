@@ -1,4 +1,3 @@
----
 name: Gspcoin Build
 
 on:
@@ -40,12 +39,12 @@ jobs:
       - name: Create version
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" > version/version.txt
+          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" >> $GITHUB_ENV
       - name: Create snapshot version
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version/version.txt
-      - name: Check if version.txt exists
+          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" >> $GITHUB_ENV
+      - name: Debug version.txt existence
         run: |
           if [ -f version/version.txt ]; then echo "File exists"; else echo "File does not exist"; fi
       - name: Upload Artifact
@@ -68,7 +67,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: version
-      - name: Check if version.txt exists
+      - name: Debug version.txt existence
         run: |
           if [ -f version/version.txt ]; then echo "File exists"; else echo "File does not exist"; fi
       - name: Extract Version
