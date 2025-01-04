@@ -210,7 +210,16 @@ jobs:
           sudo apt-get install curl libcurl4-openssl-dev build-essential libtool autotools-dev libboost-all-dev automake pkg-config python3 bsdmainutils cmake -y
           sudo apt-get install -y libssl-dev libevent-dev libzmq3-dev libminiupnpc-dev libsodium-dev libgmp-dev
 
-
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            libboost-all-dev \
+            libpthread-stubs0-dev \
+            g++ \
+            make
+            
       - name: Build Depends
         run: |
           echo "building with $(nproc) threads"
@@ -367,6 +376,7 @@ jobs:
         run: |
           pip3 install ds_store mac_alias
           pip3 install -U pip setuptools
+          pip install ez_setup
 
       - name: Configure
         run: |
