@@ -17,13 +17,13 @@ env:
 jobs:
   checking-build-version:
     name: Checking Build Versioning
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Trigger by
         run: |
           echo "checking out $GITHUB_REF triggered by $GITHUB_EVENT_NAME"
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Read build.properties key for master
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
         id: release-version
@@ -41,13 +41,13 @@ jobs:
       - name: Create version
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" > version.txt
+          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" >> $GITHUB_ENV
       - name: Create snapshot version
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version.txt
+          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" >> $GITHUB_ENV
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: version
           path: version.txt
@@ -57,13 +57,13 @@ jobs:
     needs: checking-build-version
     strategy:
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, windows-latest, macos-latest]
+        os: [ubuntu-20.04, ubuntu-22.04, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Getting Version
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: version
       - name: Extract version
@@ -158,7 +158,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/* >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-${{ matrix.os }}-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
