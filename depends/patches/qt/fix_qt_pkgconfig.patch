@@ -1,8 +1,8 @@
---- qtbase/mkspecs/features/qt_module.prf
-+++ qtbase/mkspecs/features/qt_module.prf
-@@ -269,7 +269,7 @@
+--- old/qtbase/mkspecs/features/qt_module.prf
++++ new/qtbase/mkspecs/features/qt_module.prf
+@@ -264,7 +264,7 @@
  load(qt_targets)
-
+ 
  # this builds on top of qt_common
 -!internal_module:!lib_bundle:if(unix|mingw) {
 +if(unix|mingw):!if(darwin:debug_and_release:CONFIG(debug, debug|release)) {
