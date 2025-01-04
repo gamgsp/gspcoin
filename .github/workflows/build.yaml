@@ -44,9 +44,11 @@ jobs:
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop' }}
         run: |
           echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" >> $GITHUB_ENV
-      - name: Debug version.txt existence
+      - name: Debug: Check version.txt creation
         run: |
-          if [ -f version/version.txt ]; then echo "File exists"; else echo "File does not exist"; fi
+          mkdir -p version
+          echo $BUILD_VERSION > version/version.txt
+          cat version/version.txt
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -67,7 +69,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: version
-      - name: Debug version.txt existence
+      - name: Debug: Check version.txt existence
         run: |
           if [ -f version/version.txt ]; then echo "File exists"; else echo "File does not exist"; fi
       - name: Extract Version
