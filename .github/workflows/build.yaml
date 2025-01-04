@@ -297,6 +297,29 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu22-test-${{ needs.get-version.outputs.version }}
 
+      - name: Install Dependencies (Ubuntu 22)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libboost-all-dev g++ make libpthread-stubs0-dev
+
+      - name: Clean Boost Build Cache (Ubuntu 22)
+        run: |
+          cd $GITHUB_WORKSPACE/gspcoin/depends
+          ./b2 clean
+
+      - name: Build Boost (Ubuntu 22)
+        run: |
+          cd $GITHUB_WORKSPACE/gspcoin/depends
+          ./b2 threading=multi link=static --with-thread
+
+      - name: Build Project (Ubuntu 22)
+        run: |
+          cd $GITHUB_WORKSPACE/gspcoin
+          make
+
+      - name: Run Tests
+        run: ./tests/test_script.sh
+
       - name: Run Unit Tests
         id: Tests
         run: |
