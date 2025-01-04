@@ -58,6 +58,7 @@ jobs:
     name: Build on ${{ matrix.os }}
     needs: checking-build-version
     strategy:
+      fail-fast: false # Prevent other jobs from being canceled if one fails
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
