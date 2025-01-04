@@ -317,7 +317,15 @@ jobs:
   build-win:
     name: Windows build
     needs: checking-build-version
-    runs-on: windows-2019
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        os: [windows-2022]
+        include:
+          - os: windows-2022
+            version: 10
+          - os: windows-2022
+            version: 11
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -338,15 +346,15 @@ jobs:
           choco install mingw cmake curl -y
       - name: build depends
         run: |
-          echo "building with $(nproc) threads"
-          make -C depends -j$(nproc) HOST=x86_64-w64-mingw32
+          echo "building with 4 threads"
+          make -C depends -j4 HOST=x86_64-w64-mingw32
       - name: configure
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
       - name: build binary
         run: |
-          make -j$(nproc)
+          make -j4
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
           strip $BUILD_DIR/*
