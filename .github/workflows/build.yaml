@@ -83,13 +83,16 @@ jobs:
         run: |
           echo "Building with $(nproc) threads"
           make -C depends -j$(nproc)
+          if [ $? -ne 0 ]; then echo "Build depends failed"; exit 1; fi
       - name: Configure
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+          if [ $? -ne 0 ]; then echo "Configure failed"; exit 1; fi
       - name: Build Binary
         run: |
           make -j$(nproc)
+          if [ $? -ne 0 ]; then echo "Build failed"; exit 1; fi
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
           strip $BUILD_DIR/*
