@@ -3,8 +3,8 @@
 @@ -269,7 +269,7 @@ load(qt_installs)
  load(qt_targets)
  
- # this builds on top of qt_common
-!internal_module:if(unix|mingw):!if(darwin:debug_and_release:CONFIG(debug, debug|release)) {
-    CONFIG += create_pc
-    QMAKE_PKGCONFIG_DESTDIR = -no-pkg-config
-}
+ -!internal_module:if(unix|mingw):!if(darwin:debug_and_release:CONFIG(debug, debug|release)) {
++if(unix|mingw):!if(darwin:debug_and_release:CONFIG(debug, debug|release)) {
+     CONFIG += create_pc
+     QMAKE_PKGCONFIG_DESTDIR = -no-pkg-config
+     host_build:
