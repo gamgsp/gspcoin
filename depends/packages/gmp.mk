@@ -2,7 +2,7 @@ package=gmp
 $(package)_version=6.2.1
 $(package)_download_path=https://ftp.gnu.org/gnu/gmp/
 $(package)_file_name=gmp-$($(package)_version).tar.bz2
-$(package)_sha256_hash=fd4829912b6c5bb4d6fbb0a2b6f7e4b0f567ef2d3a8e0d9fdb5c3d3c2e3d6e9a
+$(package)_sha256_hash=eae9326beb4158c386e39a356818031bd28f3124cf915f8c5b1dc4c7a36b4d7c
 
 define $(package)_set_vars
 $(package)_config_opts+=--enable-cxx --enable-fat --with-pic --disable-shared
