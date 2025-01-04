@@ -20,9 +20,6 @@ jobs:
     name: Checking Build Versioning
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger by
-        run: |
-          echo "Checking out $GITHUB_REF triggered by $GITHUB_EVENT_NAME"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Read build.properties for master
@@ -42,16 +39,16 @@ jobs:
       - name: Create version
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" >> $GITHUB_ENV
+          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" > version/version.txt
       - name: Create snapshot version
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" >> $GITHUB_ENV
+          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version/version.txt
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: version
-          path: version.txt
+          path: version/version.txt
 
   ubuntu-build:
     name: Ubuntu Build Matrix
@@ -67,6 +64,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: version
+      - name: Check version.txt exists
+        run: |
+          ls -l version
       - name: Extract Version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -163,16 +163,4 @@ jobs:
         run: |
           make -C depends -j8
       - name: Configure
-        run: |
-          ./autogen.sh
-          ./configure --prefix=`pwd`/depends/x86_64-apple-darwin
-      - name: Build Binary
-        run: |
-          make -j8
-          mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.COIN_NAME }}-mac-${{ env.BUILD_VERSION }}
-          path: ${{ env.BUILD_DIR }}
+       
