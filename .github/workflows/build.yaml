@@ -42,10 +42,12 @@ jobs:
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
         run: |
           echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" >> $GITHUB_ENV
+          echo "${{ steps.release-version.outputs.value }}" > version.txt
       - name: Create snapshot version
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop' }}
         run: |
           echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" >> $GITHUB_ENV
+          echo "${{ steps.snapshot-version.outputs.value }}" > version.txt
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -62,13 +64,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Getting Version
+      - name: Download version artifact
         uses: actions/download-artifact@v4
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
-          cat version/version.txt >> $GITHUB_ENV
+          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
       - name: Install Required Packages
         run: |
           if [[ "${{ matrix.os }}" == ubuntu* ]]; then
