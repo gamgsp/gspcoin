@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y qt5-default
+        run: sudo apt-get update && sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
       - name: Build Qt
         run: |
           qmake
@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y qt5-default
+        run: sudo apt-get update && sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
       - name: Build Qt
         run: |
           qmake
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y qt5-default
+        run: sudo apt-get update && sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
       - name: Build Qt
         run: |
           qmake
@@ -81,7 +81,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y qt5-default g++-arm-linux-gnueabihf
+        run: sudo apt-get update && sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools g++-arm-linux-gnueabihf
       - name: Build Qt
         run: |
           qmake
