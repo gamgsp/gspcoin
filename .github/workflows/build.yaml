@@ -42,13 +42,13 @@ jobs:
       - name: Create version
         if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" > version.txt
+          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" >> $GITHUB_ENV
       - name: Create snapshot version
         if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop' }}
         run: |
-          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version.txt
+          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" >> $GITHUB_ENV
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: version
           path: version.txt
@@ -59,7 +59,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-22.04, ubuntu-24.04]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,10 +77,6 @@ jobs:
           sudo apt-get install -y libboost-all-dev libssl-dev libevent-dev libzmq3-dev libminiupnpc-dev libsodium-dev libgmp-dev
           sudo apt-get install -y libprotobuf-dev protobuf-compiler libqrencode-dev
           dpkg -l  # List installed packages for debugging
-      - name: Check Installed Packages
-        run: |
-          dpkg -l | grep -E "curl|build-essential|libtool|autotools-dev|automake|pkg-config|python3|bsdmainutils|cmake|git"
-          if [ $? -ne 0 ]; then echo "Package installation failed"; exit 1; fi
       - name: Build Depends
         run: |
           echo "Building with $(nproc) threads"
@@ -106,7 +102,7 @@ jobs:
           mkdir -p ${COMPRESS_DIR}
           mv ${COIN_NAME}-ubuntu-${{ matrix.os }}-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-ubuntu-${{ matrix.os }}-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -141,7 +137,7 @@ jobs:
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.BUILD_DIR }}
@@ -176,43 +172,7 @@ jobs:
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.COIN_NAME }}-macos-${{ env.BUILD_VERSION }}
-          path: ${{ env.BUILD_DIR }}
-
-  linux-arm-build:
-    name: Linux ARM Build
-    needs: checking-build-version
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Getting Version
-        uses: actions/download-artifact@v3
-        with:
-          name: version
-      - name: Extract Version
-        run: |
-          cat version/version.txt >> $GITHUB_ENV
-      - name: Install Required Packages
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
-      - name: Build Depends
-        run: |
-          make -C depends -j$(nproc) HOST=aarch64-linux-gnu
-      - name: Configure
-        run: |
-          ./autogen.sh
-          ./configure --prefix=`pwd`/depends/aarch64-linux-gnu
-      - name: Build Binary
-        run: |
-          make -j$(nproc)
-          mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.COIN_NAME }}-linux-arm-${{ env.BUILD_VERSION }}
+          name: ${{ env.COIN_NAME }}-mac-${{ env.BUILD_VERSION }}
           path: ${{ env.BUILD_DIR }}
