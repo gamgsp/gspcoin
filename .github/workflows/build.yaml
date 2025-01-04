@@ -78,7 +78,7 @@ jobs:
       - name: build depends
         run: |
           echo "building with $(nproc) threads"
-          make -C depends -j$(nproc)
+          make -C depends -j$(nproc) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
         run: |
           ./autogen.sh
@@ -142,7 +142,7 @@ jobs:
       - name: build depends
         run: |
           echo "building with $(nproc) threads"
-          make -C depends -j$(nproc)
+          make -C depends -j$(nproc) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
         run: |
           ./autogen.sh
@@ -206,7 +206,7 @@ jobs:
       - name: build depends
         run: |
           echo "building with $(nproc) threads"
-          make -C depends -j$(nproc)
+          make -C depends -j$(nproc) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
         run: |
           ./autogen.sh
@@ -269,7 +269,7 @@ jobs:
       - name: build depends
         run: |
           echo "building with $(nproc) threads"
-          make -C depends -j8
+          make -C depends -j8 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
         run: |
           ./autogen.sh
@@ -347,7 +347,7 @@ jobs:
       - name: build depends
         run: |
           echo "building with 4 threads"
-          make -C depends -j4 HOST=x86_64-w64-mingw32
+          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
         run: |
           ./autogen.sh
