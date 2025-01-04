@@ -91,7 +91,7 @@ jobs:
           strip $BUILD_DIR/*
       - name: generate checksum and compress
         run: |
-          echo "building $BUILD_VERSION version"
+          echo "buildng $BUILD_VERSION version"
           cd $BUILD_DIR
           shasum gspcoin-cli >> checksums.txt
           sha256sum gspcoin-cli >> checksums.txt
@@ -155,7 +155,7 @@ jobs:
           strip $BUILD_DIR/*
       - name: generate checksum and compress
         run: |
-          echo "building $BUILD_VERSION version"
+          echo "buildng $BUILD_VERSION version"
           cd $BUILD_DIR
           shasum gspcoin-cli >> checksums.txt
           sha256sum gspcoin-cli >> checksums.txt
@@ -219,7 +219,7 @@ jobs:
           strip $BUILD_DIR/*
       - name: generate checksum and compress
         run: |
-          echo "building $BUILD_VERSION version"
+          echo "buildng $BUILD_VERSION version"
           cd $BUILD_DIR
           shasum gspcoin-cli >> checksums.txt
           sha256sum gspcoin-cli >> checksums.txt
@@ -282,7 +282,7 @@ jobs:
           strip $BUILD_DIR/*
       - name: generate checksum and compress
         run: |
-          echo "building $BUILD_VERSION version"
+          echo "buildng $BUILD_VERSION version"
           cd $BUILD_DIR
           shasum gspcoin-cli >> checksums.txt
           openssl sha256 gspcoin-cli >> checksums.txt
@@ -341,33 +341,35 @@ jobs:
       - name: Extract version
         run: |
           echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
-      - name: Install MSYS2
+      - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
           update: true
           install: >-
+            make
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-curl
-      - name: Install Additional Packages
-        run: |
-          pacman -S --needed --noconfirm make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-curl
+          path-type: inherit
       - name: build depends
+        shell: msys2 {0}
         run: |
           echo "building with 4 threads"
           make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
+        shell: msys2 {0}
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
       - name: build binary
+        shell: msys2 {0}
         run: |
           make -j4
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: generate checksum and compress
+        shell: msys2 {0}
         run: |
           echo "building $BUILD_VERSION version"
           cd $BUILD_DIR
