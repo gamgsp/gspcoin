@@ -76,23 +76,22 @@ jobs:
           sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake git
           sudo apt-get install -y libboost-all-dev libssl-dev libevent-dev libzmq3-dev libminiupnpc-dev libsodium-dev libgmp-dev
           sudo apt-get install -y libprotobuf-dev protobuf-compiler libqrencode-dev
+          dpkg -l  # List installed packages for debugging
       - name: Check Installed Packages
         run: |
           dpkg -l | grep -E "curl|build-essential|libtool|autotools-dev|automake|pkg-config|python3|bsdmainutils|cmake|git"
+          if [ $? -ne 0 ]; then echo "Package installation failed"; exit 1; fi
       - name: Build Depends
         run: |
           echo "Building with $(nproc) threads"
           make -C depends -j$(nproc)
-          if [ $? -ne 0 ]; then echo "Build depends failed"; exit 1; fi
       - name: Configure
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
-          if [ $? -ne 0 ]; then echo "Configure failed"; exit 1; fi
       - name: Build Binary
         run: |
           make -j$(nproc)
-          if [ $? -ne 0 ]; then echo "Build failed"; exit 1; fi
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
           strip $BUILD_DIR/*
