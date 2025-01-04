@@ -344,25 +344,32 @@ jobs:
       - name: Install Required Packages
         run: |
           choco install make mingw cmake curl -y
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: mingw-w64-x86_64-toolchain base-devel
+          msystem: MINGW64
+          path-type: inherit
       - name: build depends
-        shell: bash
+        shell: msys2-bash
         run: |
           echo "building with 4 threads"
-          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://gmplib.org/download/gmp/gmp-6.2.1.tar.bz2
+          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
       - name: configure
-        shell: bash
+        shell: msys2-bash
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
       - name: build binary
-        shell: bash
+        shell: msys2-bash
         run: |
           make -j4
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: generate checksum and compress
-        shell: bash
+        shell: msys2-bash
         run: |
           echo "building $BUILD_VERSION version"
           cd $BUILD_DIR
