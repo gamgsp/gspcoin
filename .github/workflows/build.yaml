@@ -297,10 +297,60 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu22-test-${{ needs.get-version.outputs.version }}
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Required Packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y curl libcurl4-openssl-dev build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake libboost-all-dev
+
+      - name: Check GCC Version
+        run: |
+          gcc --version
+
+      - name: Clean Build Directory
+        run: |
+          make -C depends clean
+
+      - name: Build Depends
+        run: |
+          echo "building with $(nproc) threads"
+          gcc --version
+          export FALLBACK_DOWNLOAD_PATH=https://pool.nowput.org/depends/
+          make -C depends -j$(nproc) V=1 HOST=x86_64-pc-linux-gnu
+
+      - name: Configure
+        run: |
+          ./autogen.sh
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+
+      - name: Build Binaries
+        run: |
+          make -j$(nproc)
+          mkdir -p ${BUILD_DIR} ${BUILD_DIR}_not_strip ${TEST_DIR}
+          cp src/{gspcoin-cli,gspcoind,qt/gspcoin-qt} ${BUILD_DIR}/
+          mv src/{gspcoin-cli,gspcoind,qt/gspcoin-qt} ${BUILD_DIR}_not_strip/
+          mv src/test/test_gspcoin ${TEST_DIR}
+          strip ${BUILD_DIR}/*
+
+      - name: Build Debug Binaries
+        run: |
+          make clean
+          make distclean
+          ./autogen.sh
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu --disable-tests --enable-debug --enable-crash-hooks
+          make -j$(nproc)
+          mkdir -p ${BUILD_DIR}_debug
+          mv src/{gspcoin-cli,gspcoind,qt/gspcoin-qt} ${BUILD_DIR}_debug/
+
       - name: Install Dependencies (Ubuntu 22)
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libboost-all-dev g++ make libpthread-stubs0-dev
+          sudo apt-get install gcc-10 g++-10
+          sudo update-alternatives --config gcc
+          sudo update-alternatives --config g++
 
       - name: Clean Boost Build Cache (Ubuntu 22)
         run: |
