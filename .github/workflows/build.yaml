@@ -343,21 +343,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Required Packages
+      - name: Set up Python environment
         run: |
           brew install automake libtool pkg-config librsvg libnatpmp python
           python3 -m venv venv
           source venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip3 install ds_store mac_alias
-          pip3 install -U pip setuptools
+          
+      - name: Install dependencies (macOS)
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "requirements.txt not found, skipping dependency installation."
+          fi
 
       - name: Build Depends
         run: |
           echo "building with 8 threads"
           export FALLBACK_DOWNLOAD_PATH=https://pool.nowput.org/depends/
           make -C depends -j8 HOST=x86_64-apple-darwin21.6.0
+
+      - name: Install Required Packages
+        run: |
+          pip3 install ds_store mac_alias
+          pip3 install -U pip setuptools
 
       - name: Configure
         run: |
