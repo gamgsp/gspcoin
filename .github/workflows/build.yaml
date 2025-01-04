@@ -315,63 +315,44 @@ jobs:
           path: Gspcoin-Qt.dmg
 
   build-win:
-    name: Windows build
+    name: window build
     needs: checking-build-version
-    runs-on: windows-2022
-    strategy:
-      matrix:
-        os: [windows-2022]
-        include:
-          - os: windows-2022
-            version: 10
-          - os: windows-2022
-            version: 11
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v1
         with:
           name: version
-          path: version
-      - name: Verify Artifact Content
-        run: |
-          ls -l version
-          cat version/version.txt
       - name: Extract version
         run: |
-          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
-      - name: Setup MSYS2
-        uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          install: >-
-            make
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-curl
-          path-type: inherit
-      - name: build depends
-        shell: msys2 {0}
+          cat version/version.txt >> $GITHUB_ENV
+      - name: Install Required Packages
         run: |
-          echo "building with 4 threads"
-          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
+          sudo apt-get install -y g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+      - name: build depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc) HOST=x86_64-w64-mingw32
       - name: configure
-        shell: msys2 {0}
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
       - name: build binary
-        shell: msys2 {0}
         run: |
-          make -j4
+          make -j$(nproc)
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: generate checksum and compress
-        shell: msys2 {0}
         run: |
-          echo "building $BUILD_VERSION version"
+          echo "buildng $BUILD_VERSION version"
           cd $BUILD_DIR
           shasum gspcoin-cli.exe >> checksums.txt
           sha256sum gspcoin-cli.exe >> checksums.txt
@@ -389,7 +370,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
