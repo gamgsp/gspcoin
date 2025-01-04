@@ -14,114 +14,373 @@ env:
   COMPRESS_DIR: gspcoin-compress
   TEST_LOG_ARTIFACT_DIR: test-logs
 jobs:
+  checking-build-version:
+    name: Checking Build Versioning
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Trigger by
+        run: |
+          echo "checking out $GITHUB_REF trigger by $GITHUB_EVENT_NAME"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Read build.properties key for master
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master'}}
+        id: release-version
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: build.properties
+          property: 'release-version'
+      - name: Read build.properties key for develop
+        if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop'}}
+        id: snapshot-version
+        uses: christian-draeger/read-properties@1.0.1
+        with:
+          path: build.properties
+          property: 'snapshot-version'
+      - name: create version
+        if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master'}}
+        run: |
+          echo "BUILD_VERSION=${{ steps.release-version.outputs.value }}" > version.txt
+      - name: create snapshot version
+        if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/develop'}}
+        run: |
+          echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: version
+          path: version.txt
+
   build-ubuntu20:
-    name: Build on Ubuntu 20.04
+    name: Ubuntu20 build
+    needs: checking-build-version
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential qt5-default
-      - name: Build
+        uses: actions/checkout@v4
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Verify Artifact Content
+        run: |
+          ls -l version
+          cat version/version.txt
+      - name: Extract version
+        run: |
+          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
+      - name: Install Required Packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
+      - name: build depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
+      - name: configure
         run: |
           ./autogen.sh
-          ./configure
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+      - name: build binary
+        run: |
           make -j$(nproc)
-      - name: Test
-        run: make check
+          mkdir -p $BUILD_DIR
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "buildng $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-ubuntu20-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-ubuntu20-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu20-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu20-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-ubuntu20-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
 
   build-ubuntu22:
-    name: Build on Ubuntu 22.04
+    name: Ubuntu22 build
+    needs: checking-build-version
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential qt5-default
-      - name: Build
+        uses: actions/checkout@v4
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Verify Artifact Content
+        run: |
+          ls -l version
+          cat version/version.txt
+      - name: Extract version
+        run: |
+          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
+      - name: Install Required Packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
+      - name: build depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
+      - name: configure
         run: |
           ./autogen.sh
-          ./configure
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+      - name: build binary
+        run: |
           make -j$(nproc)
-      - name: Test
-        run: make check
+          mkdir -p $BUILD_DIR
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "buildng $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-ubuntu22-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
 
   build-ubuntu24:
-    name: Build on Ubuntu 24.04
+    name: Ubuntu24 build
+    needs: checking-build-version
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential qt5-default
-      - name: Build
+        uses: actions/checkout@v4
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Verify Artifact Content
+        run: |
+          ls -l version
+          cat version/version.txt
+      - name: Extract version
+        run: |
+          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
+      - name: Install Required Packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
+      - name: build depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
+      - name: configure
         run: |
           ./autogen.sh
-          ./configure
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+      - name: build binary
+        run: |
           make -j$(nproc)
-      - name: Test
-        run: make check
+          mkdir -p $BUILD_DIR
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "buildng $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-ubuntu24-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
 
-  build-windows10:
-    name: Build on Windows 10
-    runs-on: windows-2019
+  build-macos:
+    name: macOS build
+    needs: checking-build-version
+    runs-on: macos-12
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: choco install -y qt5
-      - name: Build
+        uses: actions/checkout@v4
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Verify Artifact Content
+        run: |
+          ls -l version
+          cat version/version.txt
+      - name: Extract version
+        run: |
+          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
+      - name: Install Required Packages
+        run: |
+          brew install automake libtool pkg-config miniupnpc librsvg libnatpmp zeromq python
+          pip3 install ds_store mac_alias
+      - name: build depends
+        run: |
+          echo "building with $(sysctl -n hw.ncpu) threads"
+          make -C depends -j$(sysctl -n hw.ncpu) DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
+      - name: configure
         run: |
           ./autogen.sh
-          ./configure
-          make -j$(nproc)
-      - name: Test
-        run: make check
+          ./configure --prefix=`pwd`/depends/x86_64-apple-darwin19.6.0
+      - name: build binary
+        run: |
+          make -j$(sysctl -n hw.ncpu)
+          mkdir -p $BUILD_DIR
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "buildng $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          openssl sha256 gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          openssl sha256 gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          openssl sha256 gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          openssl sha256 gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          openssl sha256 ${COMPRESS_DIR}/${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-macos-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
+      - name: Generate macOS dmg files
+        run: |
+          make deploy
+      - name: Upload dmg file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
+          path: Gspcoin-Qt.dmg
 
-  build-windows11:
-    name: Build on Windows 11
+  build-win:
+    name: Windows build
+    needs: checking-build-version
     runs-on: windows-2022
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: choco install -y qt5
-      - name: Build
+        uses: actions/checkout@v4
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            make
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-curl
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Verify Artifact Content
+        run: |
+          ls -l version
+          cat version/version.txt
+      - name: Extract version
+        run: |
+          echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
+      - name: build depends
+        shell: msys2 {0}
+        run: |
+          echo "building with 4 threads"
+          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2 MING32_MK=builders/ming32.mk
+      - name: configure
+        shell: msys2 {0}
         run: |
           ./autogen.sh
-          ./configure
-          make -j$(nproc)
-      - name: Test
-        run: make check
-
-  build-linux-arm:
-    name: Build on Linux ARM
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential qt5-default g++-arm-linux-gnueabihf
-      - name: Build
+          ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32
+      - name: build binary
+        shell: msys2 {0}
         run: |
-          ./autogen.sh
-          ./configure --host=arm-linux-gnueabihf
-          make -j$(nproc)
-      - name: Test
-        run: make check
-
-  build-macos:
-    name: Build on macOS
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: brew install qt
-      - name: Build
+          make -j4
+          mkdir -p $BUILD_DIR
+          mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        shell: msys2 {0}
         run: |
-          ./autogen.sh
-          ./configure
-          make -j$(sysctl -n hw.ncpu)
-      - name: Test
-        run: make check
+          echo "building $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli.exe >> checksums.txt
+          sha256sum gspcoin-cli.exe >> checksums.txt
+          shasum gspcoind.exe >> checksums.txt
+          sha256sum gspcoind.exe >> checksums.txt
+          shasum gspcoin-tx.exe >> checksums.txt
+          sha256sum gspcoin-tx.exe >> checksums.txt
+          shasum gspcoin-qt.exe >> checksums.txt
+          sha256sum gspcoin-qt.exe >> checksums.txt
+          cd ..
+          zip -r ${COIN_NAME}-win-${BUILD_VERSION}.zip $BUILD_DIR/
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-win-${BUILD_VERSION}.zip ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Binary Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
