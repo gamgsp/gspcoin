@@ -343,12 +343,12 @@ jobs:
           echo "BUILD_VERSION=$(cat version/version.txt)" >> $GITHUB_ENV
       - name: Install Required Packages
         run: |
-          choco install mingw cmake curl -y
+          choco install make mingw cmake curl -y
       - name: build depends
         shell: bash
         run: |
           echo "building with 4 threads"
-          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2
+          make -C depends -j4 HOST=x86_64-w64-mingw32 DOWNLOAD_MIRROR=https://gmplib.org/download/gmp/gmp-6.2.1.tar.bz2
       - name: configure
         shell: bash
         run: |
@@ -364,7 +364,7 @@ jobs:
       - name: generate checksum and compress
         shell: bash
         run: |
-          echo "buildng $BUILD_VERSION version"
+          echo "building $BUILD_VERSION version"
           cd $BUILD_DIR
           shasum gspcoin-cli.exe >> checksums.txt
           sha256sum gspcoin-cli.exe >> checksums.txt
