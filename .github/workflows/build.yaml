@@ -333,9 +333,9 @@ jobs:
           report_paths: "unit_test_results.xml"
 
   build-macos:
-    name: macOS 12 Build
+    name: macOS 13 Build
     needs: get-version
-    runs-on: macos-12
+    runs-on: macos-13
 
     steps:
       - name: Checkout
@@ -431,7 +431,7 @@ jobs:
   test-macos:
     name: macOS Tests
     needs: [get-version, build-macos]
-    runs-on: macos-12
+    runs-on: macos-13
 
     steps:
       - name: Download Artifacts
