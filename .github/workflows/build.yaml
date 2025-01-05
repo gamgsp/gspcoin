@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version.txt
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: version
           path: version.txt
@@ -61,7 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v4 # Updated to v4
+        uses: actions/download-artifact@v4
         with:
           name: version
       - name: Extract version
@@ -73,6 +73,9 @@ jobs:
           sudo apt-get update -y
           sudo apt-get upgrade -y
           sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
+          if [ "${{ matrix.ubuntu_version }}" == "ubuntu-18.04" ]; then
+            sudo apt-get install -y  libssl-dev
+          fi
       - name: Build Depends
         run: |
           echo "building with $(nproc) threads"
@@ -83,7 +86,7 @@ jobs:
           ./configure --prefix=$(pwd)/depends/x86_64-pc-linux-gnu
       - name: Build Binary
         run: |
-          make -j$(nproc)
+          make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
           strip $BUILD_DIR/*
@@ -108,7 +111,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-${{ matrix.ubuntu_version }}-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-${{ matrix.ubuntu_version }}-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -122,7 +125,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v4 # Updated to v4
+        uses: actions/download-artifact@v4
         with:
           name: version
       - name: Extract version
@@ -142,7 +145,7 @@ jobs:
           ./configure --prefix=$(pwd)/depends/x86_64-apple-darwin19.6.0
       - name: Build Binary
         run: |
-          make -j8
+          make -j8 || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
           strip $BUILD_DIR/*
@@ -167,7 +170,7 @@ jobs:
           openssl sha256 ${COMPRESS_DIR}/${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-macos-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -175,7 +178,7 @@ jobs:
         run: |
           make deploy
       - name: Upload dmg file
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: Gspcoin-Qt.dmg
@@ -188,7 +191,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v4 # Updated to v4
+        uses: actions/download-artifact@v4
         with:
           name: version
       - name: Extract version
@@ -212,7 +215,7 @@ jobs:
           ./configure --prefix=$(pwd)/depends/x86_64-w64-mingw32
       - name: Build Binary
         run: |
-          make -j$(nproc)
+          make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
           strip $BUILD_DIR/*
@@ -237,7 +240,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifacts
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -250,7 +253,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v4 # Updated to v4
+        uses: actions/download-artifact@v4
         with:
           name: version
       - name: Extract version
@@ -272,7 +275,7 @@ jobs:
           ./configure --prefix=$(pwd)/depends/arm-linux-gnueabihf
       - name: Build Binary
         run: |
-          make -j$(nproc)
+          make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
           mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
           strip $BUILD_DIR/*
@@ -297,7 +300,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifacts
-        uses: actions/upload-artifact@v4 # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.COIN_NAME }}-linux-arm-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
