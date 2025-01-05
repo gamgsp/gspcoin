@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "BUILD_VERSION=${{ steps.snapshot-version.outputs.value }}" > version.txt
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: version
           path: version.txt
@@ -61,7 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4 # Updated to v4
         with:
           name: version
       - name: Extract version
@@ -108,7 +108,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-${{ matrix.ubuntu_version }}-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: ${{ env.COIN_NAME }}-${{ matrix.ubuntu_version }}-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -122,7 +122,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4 # Updated to v4
         with:
           name: version
       - name: Extract version
@@ -167,7 +167,7 @@ jobs:
           openssl sha256 ${COMPRESS_DIR}/${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: ${{ env.COIN_NAME }}-macos-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -175,7 +175,7 @@ jobs:
         run: |
           make deploy
       - name: Upload dmg file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: Gspcoin-Qt.dmg
@@ -188,7 +188,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4 # Updated to v4
         with:
           name: version
       - name: Extract version
@@ -237,7 +237,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
@@ -250,7 +250,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4 # Updated to v4
         with:
           name: version
       - name: Extract version
@@ -297,7 +297,7 @@ jobs:
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
       - name: Upload Binary Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: ${{ env.COIN_NAME }}-linux-arm-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
