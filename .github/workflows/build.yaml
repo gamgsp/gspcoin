@@ -67,6 +67,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+          path: version # Download to the 'version' directory
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -140,6 +141,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+          path: version # Download to the 'version' directory
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -215,6 +217,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+          path: version # Download to the 'version' directory
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -286,6 +289,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+          path: version # Download to the 'version' directory
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
