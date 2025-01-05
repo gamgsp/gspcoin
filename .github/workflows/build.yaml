@@ -314,7 +314,7 @@ jobs:
       - name: Install Required Packages
         run: |
           brew install automake libtool pkg-config miniupnpc librsvg libnatpmp zeromq python
-          pip3 install ds_store mac_alias -t /usr/local/lib/python3.11/site-packages/
+          pip3 install ds_store mac_alias -t /usr/local/lib/python3.11/site-packages/ --break-system-packages
       - name: Build Depends
         run: |
           echo "building with $(nproc) threads"
