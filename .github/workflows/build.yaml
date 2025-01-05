@@ -67,7 +67,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
-          path: version # Download to the 'version' directory
+          path: version
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -88,6 +88,12 @@ jobs:
           if [ "${{ matrix.ubuntu_version }}" == "ubuntu-18.04" ]; then
             sudo apt-get install -y  libssl-dev
           fi
+      - name: Patch ZMQ (Ubuntu 20.04 and 24.04)
+        if: ${{ matrix.ubuntu_version == 'ubuntu-20.04' || matrix.ubuntu_version == 'ubuntu-24.04' }}
+        run: |
+          cd depends/work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-c1b1c425375
+          wget https://gist.githubusercontent.com/thegokudragon/889591897b527a924b0950227e30a1b6/raw/67f4c44409e514b21544f091624a6a26f04cb70d/zmq_strncpy_fix.patch
+          patch -p0 < zmq_strncpy_fix.patch
       - name: Build Depends
         run: |
           echo "building with $(nproc) threads"
@@ -141,7 +147,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
-          path: version # Download to the 'version' directory
+          path: version
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -204,7 +210,11 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: Gspcoin-Qt.dmg
-
+      - name: create python virtual environment and install modules
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip3 install ds_store mac_alias
   build-windows:
     name: Windows Build
     needs: checking-build-version
@@ -217,7 +227,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
-          path: version # Download to the 'version' directory
+          path: version
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -276,6 +286,11 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
+      - name: Patch QT
+        run: |
+          cd depends/work/build/x86_64-w64-mingw32/qt/5.15.5-f1ce13a5ad8/qtbase
+          wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
+          patch -p0 < qt_module.patch
 
   build-linux-arm:
     name: Linux ARM Build
@@ -289,7 +304,7 @@ jobs:
         with:
           name: version
           run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
-          path: version # Download to the 'version' directory
+          path: version
       - name: Check if artifact is downloaded
         run: |
             if [ -f version/version.txt ]; then
@@ -311,6 +326,10 @@ jobs:
         run: |
           echo "building with $(nproc) threads"
           make -C depends -j$(nproc) HOST=arm-linux-gnueabihf
+      - name: Patch xcb_proto
+        run: |
+            cd depends/work/build/arm-linux-gnueabihf/xcb_proto/1.14.1-b6308e22048/xcbgen
+            sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
       - name: Configure
         run: |
           ./autogen.sh
