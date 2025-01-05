@@ -12,7 +12,6 @@ env:
   BUILD_DIR: gspcoin-build
   COMPRESS_DIR: gspcoin-compress
   TEST_LOG_ARTIFACT_DIR: test-logs
-
 jobs:
   checking-build-version:
     name: Checking Build Versioning
@@ -52,7 +51,8 @@ jobs:
         with:
           name: version
           path: version.txt
-build-ubuntu-18:
+
+  build-ubuntu-18:
     name: Build Ubuntu 18.04
     needs: checking-build-version
     runs-on: ubuntu-18.04
@@ -121,7 +121,8 @@ build-ubuntu-18:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu18-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-build-ubuntu-20:
+
+  build-ubuntu-20:
     name: Build Ubuntu 20.04
     needs: checking-build-version
     runs-on: ubuntu-20.04
@@ -200,7 +201,7 @@ build-ubuntu-20:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu20-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-build-ubuntu-22:
+  build-ubuntu-22:
     name: Build Ubuntu 22.04
     needs: checking-build-version
     runs-on: ubuntu-22.04
@@ -279,7 +280,7 @@ build-ubuntu-22:
             patch -p0 < qt_module.patch
             cd ../../../../../
           done
-build-ubuntu-24:
+  build-ubuntu-24:
     name: Build Ubuntu 24.04
     needs: checking-build-version
     runs-on: ubuntu-24.04
@@ -367,7 +368,7 @@ build-ubuntu-24:
            sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
            cd ../../../../../
           done
-build-macos:
+  build-macos:
     name: macOS Build
     needs: checking-build-version
     runs-on: macos-latest
@@ -446,7 +447,7 @@ build-macos:
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: Gspcoin-Qt.dmg
-build-windows:
+  build-windows:
     name: Windows Build
     needs: checking-build-version
     runs-on: ubuntu-latest
@@ -528,3 +529,81 @@ build-windows:
             cd ../../../../../
           done
 
+  build-linux-arm:
+    name: Linux ARM Build
+    needs: checking-build-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+          path: version
+      - name: Check if artifact is downloaded
+        run: |
+            if [ -f version/version.txt ]; then
+              echo "version artifact found"
+            else
+              echo "version artifact not found"
+              exit 1
+            fi
+      - name: Extract version
+        run: |
+          cat version/version.txt >> $GITHUB_ENV
+      - name: Install Required Packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
+          sudo apt-get install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+      - name: Build Depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc) HOST=arm-linux-gnueabihf
+      - name: Patch xcb_proto
+        run: |
+          cd depends
+          find ./work/build/arm-linux-gnueabihf/xcb_proto/ -maxdepth 1 -type d -name "1.14.1-*" -print0 | while IFS= read -r -d $'\0' dir; do
+           echo "Patching xcb_proto in: $dir"
+           cd "$dir/xcbgen"
+           sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
+           cd ../../../../../
+          done
+      - name: Configure
+        run: |
+          ./autogen.sh
+          ./configure --prefix=$(pwd)/depends/arm-linux-gnueabihf
+      - name: Build Binary
+        run: |
+          make -j$(nproc) || { echo "make failed"; exit 1; }
+          mkdir -p $BUILD_DIR
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: Generate Checksums and Compress
+        run: |
+          echo "building $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Binary Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-linux-arm-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
