@@ -275,7 +275,7 @@ jobs:
           find ./work/build/x86_64-pc-linux-gnu/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
             echo "Patching QT in: $dir"
             cd "$dir/qtbase"
-            wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
+            wget https://gist.githubusercontent.com/thegokudragon/b4aa48d7354343d8713091d746d11c32/raw/7773d9578c4e6f2a9e955e597324d7d7433e3461/qt_module.patch
             patch -p0 < qt_module.patch
             cd ../../../../../
           done
@@ -358,7 +358,15 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu24-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-
+      - name: Patch xcb_proto
+        run: |
+          cd depends
+          find ./work/build/x86_64-pc-linux-gnu/xcb_proto/ -maxdepth 1 -type d -name "1.14.1-*" -print0 | while IFS= read -r -d $'\0' dir; do
+           echo "Patching xcb_proto in: $dir"
+           cd "$dir/xcbgen"
+           sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
+           cd ../../../../../
+          done
   build-macos:
     name: macOS Build
     needs: checking-build-version
@@ -386,6 +394,10 @@ jobs:
       - name: Install Required Packages
         run: |
           brew install automake libtool pkg-config miniupnpc librsvg libnatpmp zeromq python
+      - name: create python virtual environment and install modules
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
           pip3 install ds_store mac_alias
       - name: Build Depends
         run: |
@@ -434,11 +446,6 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: Gspcoin-Qt.dmg
-      - name: create python virtual environment and install modules
-        run: |
-          python3 -m venv venv
-          source venv/bin/activate
-          pip3 install ds_store mac_alias
   build-windows:
     name: Windows Build
     needs: checking-build-version
@@ -513,12 +520,12 @@ jobs:
       - name: Patch QT
         run: |
           cd depends
-           find ./work/build/x86_64-w64-mingw32/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
+          find ./work/build/x86_64-w64-mingw32/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
             echo "Patching QT in: $dir"
             cd "$dir/qtbase"
-            wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
+            wget https://gist.githubusercontent.com/thegokudragon/b4aa48d7354343d8713091d746d11c32/raw/7773d9578c4e6f2a9e955e597324d7d7433e3461/qt_module.patch
             patch -p0 < qt_module.patch
-             cd ../../../../../
+            cd ../../../../../
            done
 
   build-linux-arm:
