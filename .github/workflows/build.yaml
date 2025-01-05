@@ -16,6 +16,8 @@ jobs:
   checking-build-version:
     name: Checking Build Versioning
     runs-on: ubuntu-20.04
+    outputs:
+      workflow_id: ${{ github.run_id }}
     steps:
       - name: Trigger by
         run: |
@@ -64,6 +66,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version
+          run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+      - name: Check if artifact is downloaded
+        run: |
+            if [ -f version/version.txt ]; then
+              echo "version artifact found"
+            else
+              echo "version artifact not found"
+              exit 1
+            fi
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -128,6 +139,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version
+          run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+      - name: Check if artifact is downloaded
+        run: |
+            if [ -f version/version.txt ]; then
+              echo "version artifact found"
+            else
+              echo "version artifact not found"
+              exit 1
+            fi
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -194,6 +214,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version
+          run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+      - name: Check if artifact is downloaded
+        run: |
+            if [ -f version/version.txt ]; then
+              echo "version artifact found"
+            else
+              echo "version artifact not found"
+              exit 1
+            fi
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -256,6 +285,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: version
+          run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
+      - name: Check if artifact is downloaded
+        run: |
+            if [ -f version/version.txt ]; then
+              echo "version artifact found"
+            else
+              echo "version artifact not found"
+              exit 1
+            fi
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
