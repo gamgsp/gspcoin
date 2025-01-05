@@ -12,6 +12,7 @@ env:
   BUILD_DIR: gspcoin-build
   COMPRESS_DIR: gspcoin-compress
   TEST_LOG_ARTIFACT_DIR: test-logs
+
 jobs:
   checking-build-version:
     name: Checking Build Versioning
@@ -51,7 +52,7 @@ jobs:
         with:
           name: version
           path: version.txt
-  build-ubuntu-18:
+build-ubuntu-18:
     name: Build Ubuntu 18.04
     needs: checking-build-version
     runs-on: ubuntu-18.04
@@ -120,8 +121,7 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu18-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-
-  build-ubuntu-20:
+build-ubuntu-20:
     name: Build Ubuntu 20.04
     needs: checking-build-version
     runs-on: ubuntu-20.04
@@ -200,7 +200,7 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-ubuntu20-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-  build-ubuntu-22:
+build-ubuntu-22:
     name: Build Ubuntu 22.04
     needs: checking-build-version
     runs-on: ubuntu-22.04
@@ -279,7 +279,7 @@ jobs:
             patch -p0 < qt_module.patch
             cd ../../../../../
           done
-  build-ubuntu-24:
+build-ubuntu-24:
     name: Build Ubuntu 24.04
     needs: checking-build-version
     runs-on: ubuntu-24.04
@@ -367,7 +367,7 @@ jobs:
            sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
            cd ../../../../../
           done
-  build-macos:
+build-macos:
     name: macOS Build
     needs: checking-build-version
     runs-on: macos-latest
@@ -446,7 +446,7 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: Gspcoin-Qt.dmg
-  build-windows:
+build-windows:
     name: Windows Build
     needs: checking-build-version
     runs-on: ubuntu-latest
@@ -527,8 +527,7 @@ jobs:
             patch -p0 < qt_module.patch
             cd ../../../../../
            done
-
-  build-linux-arm:
+build-linux-arm:
     name: Linux ARM Build
     needs: checking-build-version
     runs-on: ubuntu-latest
