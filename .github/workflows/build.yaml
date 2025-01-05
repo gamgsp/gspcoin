@@ -279,7 +279,6 @@ jobs:
             patch -p0 < qt_module.patch
             cd ../../../../../
           done
-
   build-ubuntu-24:
     name: Build Ubuntu 24.04
     needs: checking-build-version
@@ -514,13 +513,13 @@ jobs:
       - name: Patch QT
         run: |
           cd depends
-          find ./work/build/x86_64-w64-mingw32/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
+           find ./work/build/x86_64-w64-mingw32/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
             echo "Patching QT in: $dir"
             cd "$dir/qtbase"
             wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
             patch -p0 < qt_module.patch
-            cd ../../../../../
-          done
+             cd ../../../../../
+           done
 
   build-linux-arm:
     name: Linux ARM Build
