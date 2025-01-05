@@ -158,15 +158,13 @@ jobs:
       - name: Patch ZMQ
         run: |
           cd depends
-          ./work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-*/
-          if [ -d "./work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-*" ]; then
-            cd  ./work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-*/
-          else
-           echo "No zeromq directory found"
-           exit 1
-          fi
-          wget https://gist.githubusercontent.com/thegokudragon/889591897b527a924b0950227e30a1b6/raw/67f4c44409e514b21544f091624a6a26f04cb70d/zmq_strncpy_fix.patch
-          patch -p0 < zmq_strncpy_fix.patch
+          find ./work/build/x86_64-pc-linux-gnu/zeromq/ -maxdepth 1 -type d -name "4.3.4-*" -print0 | while IFS= read -r -d $'\0' dir; do
+            echo "Patching ZMQ in: $dir"
+            cd "$dir"
+            wget https://gist.githubusercontent.com/thegokudragon/889591897b527a924b0950227e30a1b6/raw/67f4c44409e514b21544f091624a6a26f04cb70d/zmq_strncpy_fix.patch
+            patch -p0 < zmq_strncpy_fix.patch
+            cd ../../../../../
+          done
       - name: Configure
         run: |
           ./autogen.sh
@@ -273,15 +271,15 @@ jobs:
           path: ${{ env.COMPRESS_DIR }}
       - name: Patch QT
         run: |
-          cd depends/work/build/x86_64-pc-linux-gnu/qt/5.15.5-*/qtbase
-          if [ -d  "depends/work/build/x86_64-pc-linux-gnu/qt/5.15.5-*" ]; then
-            cd "depends/work/build/x86_64-pc-linux-gnu/qt/5.15.5-*/qtbase"
-          else
-            echo "No qtbase directory found"
-            exit 1
-          fi
-          wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
-          patch -p0 < qt_module.patch
+          cd depends
+          find ./work/build/x86_64-pc-linux-gnu/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
+            echo "Patching QT in: $dir"
+            cd "$dir/qtbase"
+            wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
+            patch -p0 < qt_module.patch
+            cd ../../../../../
+          done
+
   build-ubuntu-24:
     name: Build Ubuntu 24.04
     needs: checking-build-version
@@ -319,15 +317,13 @@ jobs:
       - name: Patch ZMQ
         run: |
           cd depends
-          ./work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-*/
-          if [ -d "./work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-*" ]; then
-            cd  ./work/build/x86_64-pc-linux-gnu/zeromq/4.3.4-*/
-          else
-           echo "No zeromq directory found"
-           exit 1
-          fi
-          wget https://gist.githubusercontent.com/thegokudragon/889591897b527a924b0950227e30a1b6/raw/67f4c44409e514b21544f091624a6a26f04cb70d/zmq_strncpy_fix.patch
-          patch -p0 < zmq_strncpy_fix.patch
+          find ./work/build/x86_64-pc-linux-gnu/zeromq/ -maxdepth 1 -type d -name "4.3.4-*" -print0 | while IFS= read -r -d $'\0' dir; do
+            echo "Patching ZMQ in: $dir"
+            cd "$dir"
+            wget https://gist.githubusercontent.com/thegokudragon/889591897b527a924b0950227e30a1b6/raw/67f4c44409e514b21544f091624a6a26f04cb70d/zmq_strncpy_fix.patch
+            patch -p0 < zmq_strncpy_fix.patch
+            cd ../../../../../
+          done
       - name: Configure
         run: |
           ./autogen.sh
@@ -517,15 +513,14 @@ jobs:
           path: ${{ env.COMPRESS_DIR }}
       - name: Patch QT
         run: |
-          cd depends/work/build/x86_64-w64-mingw32/qt/5.15.5-*/qtbase
-          if [ -d "depends/work/build/x86_64-w64-mingw32/qt/5.15.5-*/qtbase" ]; then
-            cd "depends/work/build/x86_64-w64-mingw32/qt/5.15.5-*/qtbase"
-          else
-            echo "No qtbase directory found"
-            exit 1
-          fi
-          wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
-          patch -p0 < qt_module.patch
+          cd depends
+          find ./work/build/x86_64-w64-mingw32/qt/ -maxdepth 1 -type d -name "5.15.5-*" -print0 | while IFS= read -r -d $'\0' dir; do
+            echo "Patching QT in: $dir"
+            cd "$dir/qtbase"
+            wget https://gist.githubusercontent.com/thegokudragon/779e4a571bb9e4a7435164b415300934/raw/e35503a3c52d5f3c425b351345512728f0d04e06/qt_module.patch
+            patch -p0 < qt_module.patch
+            cd ../../../../../
+          done
 
   build-linux-arm:
     name: Linux ARM Build
@@ -564,14 +559,12 @@ jobs:
       - name: Patch xcb_proto
         run: |
           cd depends
-          ./work/build/arm-linux-gnueabihf/xcb_proto/1.14.1-*/xcbgen
-          if [ -d "./work/build/arm-linux-gnueabihf/xcb_proto/1.14.1-*/xcbgen" ]; then
-            cd "./work/build/arm-linux-gnueabihf/xcb_proto/1.14.1-*/xcbgen"
-          else
-            echo "No xcbgen directory found"
-            exit 1
-          fi
-          sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
+          find ./work/build/arm-linux-gnueabihf/xcb_proto/ -maxdepth 1 -type d -name "1.14.1-*" -print0 | while IFS= read -r -d $'\0' dir; do
+           echo "Patching xcb_proto in: $dir"
+           cd "$dir/xcbgen"
+           sed -i 's/import imp/import importlib.util as imp/g'  __init__.py error.py expr.py align.py matcher.py state.py xtypes.py
+           cd ../../../../../
+          done
       - name: Configure
         run: |
           ./autogen.sh
@@ -600,4 +593,10 @@ jobs:
           mkdir -p ${COMPRESS_DIR}
           mv ${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
           shasum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
-          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-linux-arm-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Binary Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-linux-arm-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
