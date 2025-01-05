@@ -7,7 +7,7 @@
 -!internal_module:!lib_bundle:if(unix|mingw) {
 +if(unix|mingw):!if(darwin:debug_and_release:CONFIG(debug, debug|release)) {
      CONFIG += create_pc
-     QMAKE_PKGCONFIG_DESTDIR = pkgconfig
+     QMAKE_PKGCONFIG_DESTDIR = pkg-config
      host_build: \
 @@ -274,9 +274,9 @@
      QMAKE_PKGCONFIG_INCDIR = $$[QT_INSTALL_HEADERS/raw]
