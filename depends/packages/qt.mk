@@ -205,18 +205,6 @@ define $(package)_extract_cmds
   $(build_TAR) --no-same-owner --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttools_file_name) -C qttools
 endef
 
-# Preprocessing steps work as follows:
-#
-# 1. Apply our patches to the extracted source. See each patch for more info.
-#
-# 2. Create a macOS-Clang-Linux mkspec using our mac-qmake.conf.
-#
-# 3. After making a copy of the mkspec for the linux-arm-gnueabi host, named
-#    bitcoin-linux-g++, replace tool names with $($($(package)_type)_TOOL).
-#
-# 4. Put our C, CXX and LD FLAGS into gcc-base.conf. Only used for non-host builds.
-#
-# 5. In clang.conf, swap out clang & clang++, for our compiler + flags. See #17466.
 define $(package)_preprocess_cmds
   cp $($(package)_patch_dir)/qt.pro qt.pro && \
   cp $($(package)_patch_dir)/qttools_src.pro qttools/src/src.pro && \
@@ -247,4 +235,14 @@ define $(package)_preprocess_cmds
   sed -i.old "s|QMAKE_CXX               = \$$$$\$$$${CROSS_COMPILE}clang++|QMAKE_CXX               = $($(package)_cxx)|" qtbase/mkspecs/common/clang.conf
 endef
 
-define $(package)_config_cmd
+define $(package)_config_cmds
+  cd qtbase && \
+  ./configure -top-level $($(package)_config_opts)
+endef
+
+define $(package)_build_cmds
+  $(MAKE)
+endef
+
+define $(package)_stage_cmds
+  $(MAKE) -C qtbase/src INSTALL_ROOT=$($(package)_
