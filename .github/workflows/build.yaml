@@ -103,7 +103,7 @@ jobs:
         run: |
           make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: Generate Checksums and Compress
         run: |
@@ -115,8 +115,6 @@ jobs:
           sha256sum gspcoind >> checksums.txt
           shasum gspcoin-tx >> checksums.txt
           sha256sum gspcoin-tx >> checksums.txt
-          shasum gspcoin-qt >> checksums.txt
-          sha256sum gspcoin-qt >> checksums.txt
           cat checksums.txt
           cd ..
           tar -cvzf ${COIN_NAME}-ubuntu20-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
@@ -172,7 +170,7 @@ jobs:
         run: |
           make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: Generate Checksums and Compress
         run: |
@@ -184,8 +182,6 @@ jobs:
           sha256sum gspcoind >> checksums.txt
           shasum gspcoin-tx >> checksums.txt
           sha256sum gspcoin-tx >> checksums.txt
-          shasum gspcoin-qt >> checksums.txt
-          sha256sum gspcoin-qt >> checksums.txt
           cat checksums.txt
           cd ..
           tar -cvzf ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
@@ -251,7 +247,7 @@ jobs:
         run: |
           make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: Generate Checksums and Compress
         run: |
@@ -263,8 +259,6 @@ jobs:
           sha256sum gspcoind >> checksums.txt
           shasum gspcoin-tx >> checksums.txt
           sha256sum gspcoin-tx >> checksums.txt
-          shasum gspcoin-qt >> checksums.txt
-          sha256sum gspcoin-qt >> checksums.txt
           cat checksums.txt
           cd ..
           tar -cvzf ${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
@@ -327,7 +321,7 @@ jobs:
         run: |
           make -j8 || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
+          mv src/{gspcoin-cli,gspcoin-tx,gspcoind} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: Generate Checksums and Compress
         run: |
@@ -339,8 +333,6 @@ jobs:
           openssl sha256 gspcoind >> checksums.txt
           shasum gspcoin-tx >> checksums.txt
           openssl sha256 gspcoin-tx >> checksums.txt
-          openssl sha256 gspcoin-qt >> checksums.txt
-          openssl sha256 gspcoin-qt >> checksums.txt
           cat checksums.txt
           cd ..
           tar -cvzf ${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
@@ -406,7 +398,7 @@ jobs:
         run: |
           make -j$(nproc) || { echo "make failed"; exit 1; }
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
+          mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe} $BUILD_DIR/
           strip $BUILD_DIR/*
       - name: Generate Checksums and Compress
         run: |
@@ -418,9 +410,6 @@ jobs:
           sha256sum gspcoind.exe >> checksums.txt
           shasum gspcoin-tx.exe >> checksums.txt
           sha256sum gspcoin-tx.exe >> checksums.txt
-          shasum gspcoin-qt.exe >> checksums.txt
-          sha256sum gspcoin-qt.exe >> checksums.txt
-          cat checksums.txt
           cd ..
           zip -r ${COIN_NAME}-win-${BUILD_VERSION}.zip $BUILD_DIR/
           mkdir -p ${COMPRESS_DIR}
