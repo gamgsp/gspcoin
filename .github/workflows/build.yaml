@@ -51,77 +51,6 @@ jobs:
         with:
           name: version
           path: version.txt
-
-  build-ubuntu-18:
-    name: Build Ubuntu 18.04
-    needs: checking-build-version
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Getting Version
-        uses: actions/download-artifact@v4
-        with:
-          name: version
-          run_id: ${{ needs.checking-build-version.outputs.workflow_id }}
-          path: version
-      - name: Check if artifact is downloaded
-        run: |
-            if [ -f version/version.txt ]; then
-              echo "version artifact found"
-            else
-              echo "version artifact not found"
-              exit 1
-            fi
-      - name: Extract version
-        run: |
-          cat version/version.txt >> $GITHUB_ENV
-      - name: Set Up Environment
-        run: |
-          echo "Building on ubuntu-18.04"
-          sudo apt-get update -y
-          sudo apt-get upgrade -y
-          sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake libssl-dev
-      - name: Build Depends
-        run: |
-          echo "building with $(nproc) threads"
-          make -C depends -j$(nproc)
-      - name: Configure
-        run: |
-          ./autogen.sh
-          ./configure --prefix=$(pwd)/depends/x86_64-pc-linux-gnu
-      - name: Build Binary
-        run: |
-          make -j$(nproc) || { echo "make failed"; exit 1; }
-          mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
-          strip $BUILD_DIR/*
-      - name: Generate Checksums and Compress
-        run: |
-          echo "building $BUILD_VERSION version"
-          cd $BUILD_DIR
-          shasum gspcoin-cli >> checksums.txt
-          sha256sum gspcoin-cli >> checksums.txt
-          shasum gspcoind >> checksums.txt
-          sha256sum gspcoind >> checksums.txt
-          shasum gspcoin-tx >> checksums.txt
-          sha256sum gspcoin-tx >> checksums.txt
-          shasum gspcoin-qt >> checksums.txt
-          sha256sum gspcoin-qt >> checksums.txt
-          cat checksums.txt
-          cd ..
-          tar -cvzf ${COIN_NAME}-ubuntu18-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
-          mkdir -p ${COMPRESS_DIR}
-          mv ${COIN_NAME}-ubuntu18-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
-          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu18-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
-          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu18-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
-          cat ${COMPRESS_DIR}/checksums.txt
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.COIN_NAME }}-ubuntu18-${{ env.BUILD_VERSION }}
-          path: ${{ env.COMPRESS_DIR }}
-
   build-ubuntu-20:
     name: Build Ubuntu 20.04
     needs: checking-build-version
@@ -319,7 +248,6 @@ jobs:
           cd depends
           find ./work/build/x86_64-pc-linux-gnu/zeromq/ -maxdepth 1 -type d -name "4.3.4-*" -print0 | while IFS= read -r -d $'\0' dir; do
             echo "Patching ZMQ in: $dir"
-            cd "$dir"
             wget https://gist.githubusercontent.com/thegokudragon/889591897b527a924b0950227e30a1b6/raw/67f4c44409e514b21544f091624a6a26f04cb70d/zmq_strncpy_fix.patch
             patch -p0 < zmq_strncpy_fix.patch
             cd ../../../../../
@@ -399,7 +327,7 @@ jobs:
         run: |
           python3 -m venv venv
           source venv/bin/activate
-          pip3 install ds_store mac_alias
+          pip3 install ds_store mac_alias -t /usr/local/lib/python3.11/site-packages/
       - name: Build Depends
         run: |
           echo "building with $(nproc) threads"
