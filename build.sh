@@ -7,7 +7,7 @@ mkdir -p build
 cd build
 
 # Run cmake to configure the project
-cmake ..
+cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
 
 # Compile the project
 make -j$(nproc)
