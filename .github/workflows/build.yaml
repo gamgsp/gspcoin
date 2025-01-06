@@ -59,7 +59,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: version
       - name: Extract version
@@ -118,7 +118,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: version
       - name: Extract version
@@ -176,7 +176,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: version
       - name: Extract version
@@ -241,7 +241,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Getting Version
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: version
       - name: Extract version
