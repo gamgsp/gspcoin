@@ -115,6 +115,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: version
+      - name: Extract version
+        run: |
+          cat version/version.txt >> $GITHUB_ENV
       - name: Install Required Packages
         run: |
           sudo apt-get update -y
@@ -154,9 +157,6 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-arm-linux-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-    - name: Extract version
-        run: |
-          cat version/version.txt >> $GITHUB_ENV
   build-macos:
     name: macos build
     needs: checking-build-version
