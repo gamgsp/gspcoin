@@ -9,7 +9,6 @@ $(package)_config_opts=--disable-shared --enable-host-shared --prefix=$(host_pre
 endef
 
 define $(package)_config_cmds
-  cp -f $(BASEDIR)/config.guess $(BASEDIR)/config.sub . && \
   $($(package)_autoconf)
 endef
 
@@ -19,8 +18,4 @@ endef
 
 define $(package)_stage_cmds
   $(MAKE) DESTDIR=$($(package)_staging_dir) install
-endef
-
-define $(package)_postprocess_cmds
-  rm lib/*.la
 endef
