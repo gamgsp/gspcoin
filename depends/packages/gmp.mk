@@ -1,8 +1,8 @@
 package=gmp
 $(package)_version=6.3.0
-$(package)_download_path=https://gmplib.org/download/gmp
+$(package)_download_path=https://ftp.gnu.org/gnu/gmp/
 $(package)_file_name=gmp-$($(package)_version).tar.bz2
-$(package)_sha256_hash=3e3b88be773e4e726831688966861b89736e339b7cb22495810417271c1bf24b
+$(package)_sha256_hash=ac28211a7cfb609bae2e2c8d6058d66c8fe96434f740cf6fe2e47b000d1c20cb
 
 define $(package)_set_vars
 $(package)_config_opts+=--enable-cxx --enable-fat --with-pic --disable-shared
