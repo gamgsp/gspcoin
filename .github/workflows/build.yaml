@@ -51,21 +51,23 @@ jobs:
           name: version
           path: version.txt
 
-  build-ubuntu18:
-    name: Ubuntu18 build
+  build-ubuntu22:
+    name: Ubuntu22 build
     needs: checking-build-version
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
-      - name: Install Required Packages
         run: |
           echo "building $BUILD_VERSION version"
           sudo apt-get update -y
@@ -117,10 +119,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -171,14 +176,17 @@ jobs:
   build-macos:
     name: macos build
     needs: checking-build-version
-    runs-on: macos-10.15
+    runs-on: macos-13
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -240,10 +248,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
