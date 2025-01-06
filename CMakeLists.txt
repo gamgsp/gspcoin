@@ -1,41 +1,98 @@
-cmake_minimum_required(VERSION 3.15)
-project(gspcoin)
+# This CMakeLists.txt is not meant to actually work!
+# It only serves as a dummy project to make CLion work properly when it comes to symbol resolution and all the nice
+# features dependent on that. Building must still be done on the command line using the automake build chain
+# If you load this project in CLion and would like to run/debug executables, make sure to remove the "Build" entry from
+# the run/debug configuration as otherwise CLion will try to build this project with cmake, failing horribly.
+# You'll also have to manually change the executable in the configuration to the correct path of the already built executable
 
-# Enable modern c++
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+cmake_minimum_required(VERSION 3.7)
 
-# Set the vcpkg toolchain file
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake)
+set(PROJECT_NAME
+    gspcoin)
 
-# Define source files
-file(GLOB_RECURSE GSPCOIN_SOURCES src/*.cpp src/*.h)
+project(${PROJECT_NAME}
+  LANGUAGES CXX C)
 
-# Add dependencies using find_package (you'll need to add more)
-find_package(Boost CONFIG REQUIRED COMPONENTS system filesystem thread)  # Example Boost
-find_package(OpenSSL CONFIG REQUIRED) # Example OpenSSL
-find_package(libevent CONFIG REQUIRED)  # Example libevent
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Add gmp
-find_package(GMP CONFIG REQUIRED) # Example GMP
+include_directories(
+        src
+        src/qt/forms
+        src/leveldb/include
+        src/univalue/include
+)
 
-# Add libzmq
-find_package(libzmq CONFIG REQUIRED)
+if(UNIX AND NOT APPLE)
+    set(DEPENDS_PREFIX depends/x86_64-pc-linux-gnu)
+elseif(APPLE)
+    set(DEPENDS_PREFIX depends/x86_64-apple-darwin14)
+elseif(WIN32)
+    set(DEPENDS_PREFIX depends/x86_64-w64-mingw32)
+endif()
 
-# Add bls
-find_package(bls-dash CONFIG REQUIRED)
+message(STATUS "DEPENDS_PREFIX: ${DEPENDS_PREFIX}")
 
-# Add miniupnpc
-find_package(miniupnpc CONFIG REQUIRED)
+if(DEFINED DEPENDS_PREFIX)
+    include_directories(${DEPENDS_PREFIX}/include)
+    include_directories(${DEPENDS_PREFIX}/include/QtWidgets)
+endif()
 
-# Create executable
-add_executable(gspcoind ${GSPCOIN_SOURCES})
+add_definitions(
+        -DENABLE_CRASH_HOOKS=1
+        -DENABLE_STACKTRACES=1
+        -DENABLE_WALLET=1
+)
 
-# Link with libraries
-target_link_libraries(gspcoind PRIVATE Boost::boost  OpenSSL::Crypto OpenSSL::SSL libevent::libevent GMP::gmp libzmq::libzmq bls-dash::bls-dash miniupnpc::miniupnpc)
+file(GLOB SOURCE_FILES
+        src/*.cpp
+        src/*.h
+        src/bench/*.cpp
+        src/bench/*.h
+        src/bls/*.cpp
+        src/bls/*.h
+        src/coinjoin/*.cpp
+        src/coinjoin/*.h
+        src/compat/*.cpp
+        src/compat/*.h
+        src/consensus/*.cpp
+        src/consensus/*.h
+        src/crypto/*.c
+        src/crypto/*.cpp
+        src/crypto/*.h
+        src/evo/*.cpp
+        src/evo/*.h
+        src/leveldb/db/*.cc
+        src/leveldb/db/*.h
+        src/leveldb/include/*.h
+        src/llmq/*.cpp
+        src/llmq/*.h
+        src/smartnode/*.cpp
+        src/smartnode/*.h
+        src/policy/*.cpp
+        src/policy/*.h
+        src/primitives/*.cpp
+        src/primitives/*.h
+        src/qt/*.cpp
+        src/qt/*.h
+        src/qt/test/*.cpp
+        src/qt/test/*.h
+        src/rpc/*.cpp
+        src/rpc/*.h
+        src/script/*.cpp
+        src/script/*.h
+        src/secp256k1/include/*.h
+        src/test/*.cpp
+        src/test/*.h
+        src/univalue/include/*.h
+        src/univalue/lib/*.cpp
+        src/univalue/lib/*.h
+        src/wallet/*.cpp
+        src/wallet/*.h
+        src/wallet/test/*.cpp
+        src/zmq/*.cpp
+        src/zmq/*.h
+        )
 
-# Add installation support
-install(TARGETS gspcoind DESTINATION bin)
-
-# Add CMAKE_INSTALL_PREFIX for better install path management
-set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "Installation path")
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})

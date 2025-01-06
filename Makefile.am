@@ -1,6 +1,6 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Copyright (c) 2014-2018 The Dash Core developers
-# Copyright (c) 2020-2025 The Gspcoin developers
+# Copyright (c) 2020-2022 The Gspcoin developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
