@@ -3,6 +3,7 @@ $(package)_version=1_83_0
 $(package)_download_path=https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/
 $(package)_file_name=$(package)_$($(package)_version).tar.bz2
 $(package)_sha256_hash=4b214907347c939815c553032b05f543e6219c33af977f3355ab060e58db125e
+$(package)_dependencies=native_b2
 
 define $(package)_set_vars
 $(package)_config_opts_release=variant=release
