@@ -99,11 +99,11 @@ jobs:
           mv ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.COIN_NAME }}-ubuntu22-${{ env.BUILD_VERSION }}
-          path: ${{ env.COMPRESS_DIR }}
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v3
+          with:
+            name: ${{ env.COIN_NAME }}-ubuntu22-${{ env.BUILD_VERSION }}
+            path: ${{ env.COMPRESS_DIR }}
   build-arm-linux:
     name: ARM Linux build
     needs: checking-build-version
@@ -152,11 +152,11 @@ jobs:
           mv ${COIN_NAME}-arm-linux-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-arm-linux-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.COIN_NAME }}-arm-linux-${{ env.BUILD_VERSION }}
-          path: ${{ env.COMPRESS_DIR }}
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v3
+          with:
+            name: ${{ env.COIN_NAME }}-arm-linux-${{ env.BUILD_VERSION }}
+            path: ${{ env.COMPRESS_DIR }}
   build-macos:
     name: macos build
     needs: checking-build-version
@@ -260,15 +260,15 @@ jobs:
           sha256sum gspcoin-cli.exe >> checksums.txt
           sha256sum gspcoind.exe >> checksums.txt
           sha256sum gspcoin-tx.exe >> checksums.txt
-           sha256sum gspcoin-qt.exe >> checksums.txt
+          sha256sum gspcoin-qt.exe >> checksums.txt
           cd ..
           zip -r ${COIN_NAME}-win-${BUILD_VERSION}.zip $BUILD_DIR/
           mkdir -p ${COMPRESS_DIR}
           mv ${COIN_NAME}-win-${BUILD_VERSION}.zip ${COMPRESS_DIR}/
           sha256sum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
-      - name: Upload Binary Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
-          path: ${{ env.COMPRESS_DIR }}
+        - name: Upload Binary Artifacts
+          uses: actions/upload-artifact@v3
+          with:
+            name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
+            path: ${{ env.COMPRESS_DIR }}
