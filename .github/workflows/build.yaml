@@ -68,7 +68,6 @@ jobs:
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
-        run: |
           echo "building $BUILD_VERSION version"
           sudo apt-get update -y
           sudo apt-get upgrade -y
