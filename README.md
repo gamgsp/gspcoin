@@ -1,4 +1,4 @@
-GSP Coin Core v2.5
+GSP Coin Core v2.1.2
 ===========================
 Cryptocurrency that links to modern Digital Advertising and Marketing.
 
