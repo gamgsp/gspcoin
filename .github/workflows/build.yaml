@@ -57,10 +57,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -111,10 +114,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -164,10 +170,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
@@ -224,10 +233,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create Artifact Directory
+        run: mkdir -p version
       - name: Getting Version
         uses: actions/download-artifact@v3
         with:
           name: version
+          path: version
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
