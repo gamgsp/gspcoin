@@ -1,8 +1,8 @@
 package=boost
-$(package)_version=1_83_0
-$(package)_download_path=https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/
-$(package)_file_name=$(package)_$($(package)_version).tar.bz2
-$(package)_sha256_hash=4b214907347c939815c553032b05f543e6219c33af977f3355ab060e58db125e
+$(package)_version=1.77.0
+$(package)_download_path=https://boostorg.jfrog.io/artifactory/main/release/$($(package)_version)/source/
+$(package)_file_name=boost_$(subst .,_,$($(package)_version)).tar.bz2
+$(package)_sha256_hash=fc9f85fc030e233142908241af7a846e60630aa7388de9a5fafb1f3a26840854
 $(package)_dependencies=native_b2
 # $(package)_patches=boost_gcc11.patch
 
@@ -18,6 +18,10 @@ $(package)_config_opts_x86_64=architecture=x86 address-model=64
 $(package)_config_opts_i686=architecture=x86 address-model=32
 $(package)_config_opts_aarch64=address-model=64
 $(package)_config_opts_armv7a=address-model=32
+$(package)_config_opts_i686_android=address-model=32
+$(package)_config_opts_aarch64_android=address-model=64
+$(package)_config_opts_x86_64_android=address-model=64
+$(package)_config_opts_armv7a_android=address-model=32
 ifneq (,$(findstring clang,$($(package)_cxx)))
 $(package)_toolset_$(host_os)=clang
 else
