@@ -45,7 +45,7 @@ that is usually accessible only to rich investors. That is why everyone can earn
 modest initial investment by deploying Smartnodes and contributing to the blockchain
 stability and security.
 
-The roadmap to our goals can be found at our official webpage https://coin.globalsocialpost.com
+The roadmap to our goals can be found at our official webpage https://gspcoin.us
 Discord- https://discord.gg/Anh2sr4txV
 Telegram- https://t.me/gspc_gspcoin
 Twitter- https://twitter.com/gspcoin
