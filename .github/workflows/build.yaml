@@ -79,7 +79,7 @@ jobs:
       - name: configure
         run: |
           ./autogen.sh
-          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu || (cat config.log && exit 1)
       - name: build binary
         run: |
           make -j$(nproc)
