@@ -1,4 +1,4 @@
-packages:=boost libevent gmp backtrace cmake immer zeromq openssl zlib
+packages:=boost openssl libevent zeromq gmp bls-dash backtrace cmake zlib immer bdb
 
 qrencode_linux_packages = qrencode
 qrencode_android_packages = qrencode
@@ -11,6 +11,7 @@ qt_android_packages=qt
 qt_darwin_packages=qt
 qt_mingw32_packages=qt
 
+wallet_packages=bdb
 bdb_packages=bdb
 
 upnp_packages=miniupnpc
