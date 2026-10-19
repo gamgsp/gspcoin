@@ -1,20 +1,14 @@
-GSP Coin Core v2.5
+GSP Coin Core v2.2
 ===========================
 Cryptocurrency that links to modern Digital Advertising and Marketing.
 
 What is GSP Coin?
 
-GSP Coin is a project that aims to build a new ecosystem for digital and mobile advertising, allowing advertisers to create and manage campaigns through our platforms like Global Ads Media | Global Social Post | Global Smtp Mail  with complete automation. A revolutionary Real Time Bidding system allows advertisers to gain most of required web traffic and track the result of their investments in a completely automated fashion. The GSP Coin token will serve as the platform’s internal currency and will be used within the ecosystem.
+GSP Coin is a project that aims to build a new ecosystem for digital and mobile advertising, allowing advertisers to create and manage campaigns through our platforms like Global Ads Media | Global Social Post | Global Smtp Mail with complete automation. A revolutionary Real Time Bidding system allows advertisers to gain most of required web traffic and track the result of their investments in a completely automated fashion. The GSP Coin token will serve as the platform’s internal currency and will be used within the ecosystem.
 
-GSP Coin is a decentralized financial technology accessible to everyone that is fast, reliable and secure with negligible transaction costs. 
+GSP Coin is a decentralized financial technology accessible to everyone that is fast, reliable and secure with negligible transaction costs. GSP Coin has its own blockchain, which is a fork of Raptoreum codebase with ASIC resistant POW algorithm (GhostRider) and consensus ensuring Smartnodes which make the network immune to 51% attacks. GSP Coin can be mined on both CPU and GPU. GSP Coin cares about privacy and has an integrated CoinJoin mechanism that allows to hide the balance directly in the wallet.
 
-GSP Coin has its own blockchain, which is a fork of Raptoreum codebase with ASIC resistant POW algorithm and consensus ensuring Smartnodes which make the network immune to 51% attacks. GSP Coin coins can be mined on both CPU and GPU. GSP Coin cares about privacy and has an integrated CoinJoin mechanism that allows to hide the balance directly in the wallet.
-
-GSP Coin is a decentralized financial technology accessible to everyone that is fast, reliable and secure with negligible transaction costs. GSP Coin has its own blockchain, which is a fork of Raptoreum codebase with ASIC resistant POW algorithm and consensus ensuring Smartnodes which make the network immune to 51% attacks. GSP Coin coins can be mined on both CPU and GPU. GSP Coin cares about privacy and has an integrated CoinJoin mechanism that allows to hide the balance directly in the wallet.
-
-GSP Coin is a project that aims to build a new ecosystem for digital and mobile advertising, allowing advertisers to create and manage campaigns through our platforms like Global Ads Media | Global Social Post | Global Smtp Mail with complete automation. A revolutionary Auto-Dealer system allows advertisers to track the result of their investments in a completely automated fashion. The GSP Coin token will serve as the platform’s internal currency and will be used within the ecosystem.
-
-GSP Coin is a Cryptocurrency, tied to Digital Advertising and Marketing. Its focus is on bridging the gap between cryptocurrencies and the digital advertising and marketing industries currently, GSP Coin (GSP) has been targeted specifically at adtech companies in the retail industry. GSP Coin’s mission is to bridge the gap between traditional finance and blockchain based transactions via its blockchain protocol.
+GSP Coin is tied to Digital Advertising and Marketing. Its focus is on bridging the gap between cryptocurrencies and the digital advertising and marketing industries currently, GSP Coin (GSP) has been targeted specifically at adtech companies in the retail industry. GSP Coin’s mission is to bridge the gap between traditional finance and blockchain based transactions via its blockchain protocol.
 
 As our customer base grows, we must be able to do everything in the market that we want to do. This coin will give us the ability to do it all with more flexibility, ease-of-access and less restrictions on geographical location.
 
@@ -24,43 +18,35 @@ The primary goal is to pay the suppliers and accept payment from clients in GSP 
 
 **Problems GSP Coin attempts to solve**
 
-GSP Coin is a transparent and scalable financial system that aims to make cryptocurrencies
-accessible to everyone. There are four main directions in which we want to contribute.
+GSP Coin is a transparent and scalable financial system that aims to make cryptocurrencies accessible to everyone. There are four main directions in which we want to contribute:
 
-1. Make managing GSPC easy for everyone by deploying mobile wallets for the major
-mobile OS, such as Android and IOS.
+1. Make managing GSPC easy for everyone by deploying mobile and desktop wallets for major operating systems.
 
-2. Promote the adoption of cryptocurrencies by offering a payment gateway service. The
-service will provide a free plugin for small businesses to facilitate online transactions in
-cryptocurrency. Customers will be able to pay for goods and services in GSPC, while an
-entrepreneur will receive fiat money to his/her credit card.
+2. Promote the adoption of cryptocurrencies by offering a payment gateway service. The service will facilitate online transactions in cryptocurrency. Customers will be able to pay for goods and services in GSPC, while an entrepreneur can receive settlements automatically.
 
-3. We think that all cryptocurrencies deserve to have access to the investors and to be
-tradable at an exchange. To achieve this goal we want to remove entry barriers in the form
-of high exchange listing fees and to offer everyone Bitroeum Exchange with its own
-blockchain, where all coins interested in listing can be traded against Bitroeum.
+3. Provide open access to liquidity and trading without prohibitive entry barriers.
 
-4. We believe that everyone should be able to get a part of the financial pie with high returns
-that is usually accessible only to rich investors. That is why everyone can earn coins with
-modest initial investment by deploying Smartnodes and contributing to the blockchain
-stability and security.
+4. Enable community participation with high returns: everyone can earn coins by deploying Smartnodes and contributing to blockchain stability and security.
 
-The roadmap to our goals can be found at our official webpage https://gspcoin.us
-Discord- https://discord.gg/Anh2sr4txV
-Telegram- https://t.me/gspc_gspcoin
-Twitter- https://twitter.com/gspcoin
+Official Links:
+* Webpage: https://gspcoin.us
+* Block Explorer: https://explorer.gspcoin.us
+* Block Explorer (Mirror): https://explorer.globalsocialpost.com
+* Discord: https://discord.gg/Anh2sr4txV
+* Telegram: https://t.me/gspc_gspcoin
+* Twitter / X: https://x.com/gspcoin
+* GitHub: https://github.com/gamgsp/gspcoin
 
 License
 -------
 
-GSP Coin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see https://opensource.org/licenses/MIT.
+GSP Coin Core is released under the terms of the MIT license. See [COPYING](COPYING) for more information or see https://opensource.org/licenses/MIT.
 
 Development Process
 -------------------
 
 The `master` branch is meant to be stable. Development is done in separate branches.
-[Tags](https://github.com/gspcoin/gspcoin/tags) are created to indicate new official,
+[Tags](https://github.com/gamgsp/gspcoin/tags) are created to indicate new official,
 stable release versions of GSP Coin Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).

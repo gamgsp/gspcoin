@@ -51,7 +51,7 @@ static const char *validateFutureCoin(const Coin& coin, int nSpendHeight) {
 		CBlockIndex* confirmedBlockIndex = chainActive[coin.nHeight];
 		if(confirmedBlockIndex) {
 			int64_t adjustCurrentTime = GetAdjustedTime();
-			uint32_t confirmedTime = confirmedBlockIndex->GetBlockTime();
+			int64_t confirmedTime = confirmedBlockIndex->GetBlockTime();
 			CFutureTx futureTx;
 			if(GetTxPayload(coin.vExtraPayload, futureTx)) {
 				bool isBlockMature = futureTx.maturity > 0 && nSpendHeight - coin.nHeight >= futureTx.maturity;

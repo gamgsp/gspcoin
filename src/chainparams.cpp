@@ -524,11 +524,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_V17].nFalloffCoeff = 5; // this corresponds to 10 periods
 
         // The best chain should have at least this much work.
-        //consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000c2a6d13d4138"); // 0
-        consensus.nMinimumChainWork = uint256S("0x0"); // 0
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000008793227e699"); // Block 498000
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0"); // 0
+        consensus.defaultAssumeValid = uint256S("0x71bfdb15146bd009fef94bade300c0ad22c01471e5606bc0cde9fdf4ddd59235"); // Block 498000
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -548,14 +547,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x088a1d08829fce71ceecb6b357c37b8a9e242b75fd7d8e0c2e45daf8535e5ff3"));
 
         vSeeds.emplace_back("explorer.globalsocialpost.com");
-        vSeeds.emplace_back("api.globalsocialpost.com");
-        vSeeds.emplace_back("electrumx.globalsocialpost.com");
-        vSeeds.emplace_back("node1.globalsocialpost.com");
-        vSeeds.emplace_back("node2.globalsocialpost.com");
-        vSeeds.emplace_back("node3.globalsocialpost.com");
-        vSeeds.emplace_back("node4.globalsocialpost.com");
-        vSeeds.emplace_back("node5.globalsocialpost.com");
-        vSeeds.emplace_back("node6.globalsocialpost.com");
+        vSeeds.emplace_back("explorer.gspcoin.us");
 
 
         // Gspcoin addresses start with 'B'
@@ -626,14 +618,22 @@ public:
         fBIP9CheckSmartnodesUpgraded = true;
 
         checkpointData = {
-          {  {0, uint256S("0xd46e50cd2ff0d0e06d3edd122cc30b32dd0b0526e96682006d5da71359b8d872")} }
-	};
+            {
+                {0, uint256S("0xd46e50cd2ff0d0e06d3edd122cc30b32dd0b0526e96682006d5da71359b8d872")},
+                {5000, uint256S("0x6c62429cb5419cd0d448bd2d88c04f6153696a6166ca165843a686a7da148f3d")},
+                {50000, uint256S("0xa08951dc83d35a7f19bbe585f3fa35e065bf2798f1611fc7a53ed3243b0a6cdb")},
+                {100000, uint256S("0xf76e6edf2b76998b84d4231e23f0c58f18d450f011b25a7fc0fc5ff34c2163c6")},
+                {200000, uint256S("0xe0b7daa3dc112c8274c732736528ffc9badeac02b97f3f1cfe34dde8e9602407")},
+                {300000, uint256S("0xb4cee1402f45f7aaaefe1739da6010230b231ddad24f19e1e049b7677e0fbb24")},
+                {400000, uint256S("0xfe27ae0e229dc45bc9b01899baf7d5c99e5970cc776c2d92b659480368b2f057")},
+                {498000, uint256S("0x71bfdb15146bd009fef94bade300c0ad22c01471e5606bc0cde9fdf4ddd59235")}
+            }
+        };
 
         chainTxData = ChainTxData{
-          1666459880,   // * UNIX timestamp of last known number of transactions (Block 0)
-              0,   // * total number of transactions between genesis and that timestamp
-                        //   (the tx=... number in the SetBestChain debug.log lines)
-              0    // * estimated number of transactions per second after that timestamp
+            1792300404, // * UNIX timestamp of last known number of transactions (Block 498000)
+            500000,     // * total number of transactions between genesis and that timestamp
+            0.01        // * estimated number of transactions per second after that timestamp
         };
     }
 };

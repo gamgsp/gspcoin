@@ -647,7 +647,7 @@ void SetupServerArgs()
 std::string LicenseInfo()
 {
     const std::string URL_SOURCE_CODE = "<https://github.com/gamgsp/gspcoin>";
-    const std::string URL_WEBSITE = "<https://coin.globalsocialpost.com>";
+    const std::string URL_WEBSITE = "<https://gspcoin.us>";
 
     return CopyrightHolders(_("Copyright (C)"), 2014, COPYRIGHT_YEAR) + "\n" +
            "\n" +
@@ -1847,7 +1847,8 @@ bool AppInitMain()
     uiInterface.InitMessage(_("Loading sporks cache..."));
     CFlatDB<CSporkManager> flatdb6("sporks.dat", "magicSporkCache");
     if (!flatdb6.Load(sporkManager)) {
-        return InitError(_("Failed to load sporks cache from") + "\n" + (GetDataDir() / "sporks.dat").string());
+        LogPrintf("Failed to load sporks cache from %s, clearing and recreating from network...\n", (GetDataDir() / "sporks.dat").string());
+        sporkManager.Clear();
     }
 
     // ********************************************************* Step 7b: load block chain
@@ -2106,7 +2107,8 @@ bool AppInitMain()
         uiInterface.InitMessage(_("Loading POW cache..."));
         CFlatDB<CPowCache> flatdb7(strDBName, "powCache");
         if(!flatdb7.Load(CPowCache::Instance())) {
-            return InitError(_("Failed to load POW cache from") + "\n" + (pathDB / strDBName).string());
+            LogPrintf("Failed to load POW cache from %s, resetting cache...\n", (pathDB / strDBName).string());
+            CPowCache::Instance().Clear();
         }
     }
 
@@ -2197,13 +2199,12 @@ bool AppInitMain()
     CFlatDB<CSmartnodeMetaMan> flatdb1(strDBName, "magicSmartnodeCache");
     if (fLoadCacheFiles) {
         if(!flatdb1.Load(mmetaman)) {
-            return InitError(_("Failed to load smartnode cache from") + "\n" + (pathDB / strDBName).string());
+            LogPrintf("Failed to load smartnode cache from %s, resetting cache...\n", (pathDB / strDBName).string());
+            mmetaman.Clear();
         }
     } else {
         CSmartnodeMetaMan mmetamanTmp;
-        if(!flatdb1.Dump(mmetamanTmp)) {
-            return InitError(_("Failed to clear smartnode cache at") + "\n" + (pathDB / strDBName).string());
-        }
+        flatdb1.Dump(mmetamanTmp);
     }
 
     strDBName = "governance.dat";
@@ -2211,14 +2212,13 @@ bool AppInitMain()
     CFlatDB<CGovernanceManager> flatdb3(strDBName, "magicGovernanceCache");
     if (fLoadCacheFiles && !fDisableGovernance) {
         if(!flatdb3.Load(governance)) {
-            return InitError(_("Failed to load governance cache from") + "\n" + (pathDB / strDBName).string());
+            LogPrintf("Failed to load governance cache from %s, resetting cache...\n", (pathDB / strDBName).string());
+            governance.Clear();
         }
         governance.InitOnLoad();
     } else {
         CGovernanceManager governanceTmp;
-        if(!flatdb3.Dump(governanceTmp)) {
-            return InitError(_("Failed to clear governance cache at") + "\n" + (pathDB / strDBName).string());
-        }
+        flatdb3.Dump(governanceTmp);
     }
 
     strDBName = "netfulfilled.dat";
@@ -2226,13 +2226,12 @@ bool AppInitMain()
     CFlatDB<CNetFulfilledRequestManager> flatdb4(strDBName, "magicFulfilledCache");
     if (fLoadCacheFiles) {
         if(!flatdb4.Load(netfulfilledman)) {
-            return InitError(_("Failed to load fulfilled requests cache from") + "\n" + (pathDB / strDBName).string());
+            LogPrintf("Failed to load fulfilled requests cache from %s, resetting cache...\n", (pathDB / strDBName).string());
+            netfulfilledman.Clear();
         }
     } else {
         CNetFulfilledRequestManager netfulfilledmanTmp;
-        if(!flatdb4.Dump(netfulfilledmanTmp)) {
-            return InitError(_("Failed to clear fulfilled requests cache at") + "\n" + (pathDB / strDBName).string());
-        }
+        flatdb4.Dump(netfulfilledmanTmp);
     }
 
     // ********************************************************* Step 10c: schedule Gspcoin-specific tasks

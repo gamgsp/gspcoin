@@ -43,7 +43,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "Gspcoin"
-#define QAPP_ORG_DOMAIN "gspcoin.org"
+#define QAPP_ORG_DOMAIN "gspcoin.us"
 #define QAPP_APP_NAME_DEFAULT "Gspcoin-Qt"
 #define QAPP_APP_NAME_TESTNET "Gspcoin-Qt-testnet"
 #define QAPP_APP_NAME_DEVNET "Gspcoin-Qt-%s"

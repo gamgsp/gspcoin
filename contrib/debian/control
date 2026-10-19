@@ -1,8 +1,8 @@
 Source: gspcoin
 Section: utils
 Priority: optional
-Maintainer: Holger Schinzel <holger@gspcoin.org>
-Uploaders: Holger Schinzel <holger@gspcoin.org>
+Maintainer: Gspcoin Developers <dev@gspcoin.us>
+Uploaders: Gspcoin Developers <dev@gspcoin.us>
 Build-Depends: debhelper,
  devscripts,
  automake,
@@ -26,9 +26,9 @@ Build-Depends: debhelper,
  python,
  libzmq3-dev
 Standards-Version: 3.9.2
-Homepage: https://www.gspcoin.org/
-Vcs-Git: git://github.com/gspcoin/gspcoin.git
-Vcs-Browser: https://github.com/gspcoin/gspcoin
+Homepage: https://gspcoin.us/
+Vcs-Git: https://github.com/gamgsp/gspcoin.git
+Vcs-Browser: https://github.com/gamgsp/gspcoin
 
 Package: gspcoind
 Architecture: any

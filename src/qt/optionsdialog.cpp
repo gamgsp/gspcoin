@@ -135,7 +135,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
             ui->lang->addItem(locale.nativeLanguageName() + QString(" (") + langStr + QString(")"), QVariant(langStr));
         }
     }
-    ui->thirdPartyTxUrls->setPlaceholderText("https://example.com/tx/%s");
+    ui->thirdPartyTxUrls->setPlaceholderText("https://explorer.gspcoin.us/tx/%s");
 
     ui->unit->setModel(new BitcoinUnits(this));
 

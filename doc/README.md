@@ -1,7 +1,7 @@
 Gspcoin Core
 ==========
 
-This is the official reference wallet for Gspcoin digital currency and comprises the backbone of the Gspcoin peer-to-peer network. You can [download Gspcoin Core](https://www.gspcoin.org/downloads/) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for Gspcoin digital currency and comprises the backbone of the Gspcoin peer-to-peer network. You can [download Gspcoin Core](https://github.com/gamgsp/gspcoin/releases) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
@@ -24,12 +24,10 @@ Drag Gspcoin-Qt to your applications folder, and then run Gspcoin-Qt.
 
 ### Need Help?
 
-* See the [Gspcoin documentation](https://docs.gspcoin.org)
-for help and more information.
-* See the [Gspcoin Developer Documentation](https://gspcoin-docs.github.io/) 
-for technical specifications and implementation details.
-* Ask for help on [Gspcoin Nation Discord](http://gspcoinchat.org)
-* Ask for help on the [Gspcoin Forum](https://gspcoin.org/forum)
+* See the [Gspcoin website](https://gspcoin.us) for more information.
+* Official Block Explorer: [Gspcoin Explorer](https://explorer.gspcoin.us)
+* Ask for help on [Gspcoin Discord](https://discord.gg/Anh2sr4txV)
+* Join the [Gspcoin Telegram Community](https://t.me/gspc_gspcoin)
 
 Building
 ---------------------
@@ -59,8 +57,8 @@ The Gspcoin Core repo's [root README](/README.md) contains relevant information 
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [Gspcoin Forum](https://gspcoin.org/forum), in the Development & Technical Discussion board.
-* Discuss on [Gspcoin Nation Discord](http://gspcoinchat.org)
+* Official Website: [https://gspcoin.us](https://gspcoin.us)
+* Community Chat: [Gspcoin Discord](https://discord.gg/Anh2sr4txV) | [Telegram](https://t.me/gspc_gspcoin)
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
