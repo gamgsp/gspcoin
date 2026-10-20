@@ -110,6 +110,7 @@ ArgsManager gArgs;
 
 CTranslationInterface translationInterface;
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
 /** Init OpenSSL library multithreading support */
 static std::unique_ptr<CCriticalSection[]> ppmutexOpenSSL;
 void locking_callback(int mode, int i, const char* file, int line) NO_THREAD_SAFETY_ANALYSIS
@@ -120,6 +121,7 @@ void locking_callback(int mode, int i, const char* file, int line) NO_THREAD_SAF
         LEAVE_CRITICAL_SECTION(ppmutexOpenSSL[i]);
     }
 }
+#endif
 
 // Singleton for wrapping OpenSSL setup/teardown.
 class CInit
@@ -127,6 +129,7 @@ class CInit
 public:
     CInit()
     {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         // Init OpenSSL library multithreading support
         ppmutexOpenSSL.reset(new CCriticalSection[CRYPTO_num_locks()]);
         CRYPTO_set_locking_callback(locking_callback);
@@ -137,6 +140,9 @@ public:
         // or corrupt. Explicitly tell OpenSSL not to try to load the file. The result for our libs will be
         // that the config appears to have been loaded and there are no modules/engines available.
         OPENSSL_no_config();
+#else
+        OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CONFIG, nullptr);
+#endif
 
 #ifdef WIN32
         // Seed OpenSSL PRNG with current contents of the screen
@@ -148,12 +154,14 @@ public:
     }
     ~CInit()
     {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         // Securely erase the memory used by the PRNG
         RAND_cleanup();
         // Shutdown OpenSSL library multithreading support
         CRYPTO_set_locking_callback(nullptr);
         // Clear the set of locks now to maintain symmetry with the constructor.
         ppmutexOpenSSL.reset();
+#endif
     }
 }
 instance_of_cinit;
