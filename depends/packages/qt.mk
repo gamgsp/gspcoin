@@ -129,6 +129,8 @@ $(package)_config_opts_darwin += -pch
 $(package)_config_opts_darwin += -no-feature-corewlan
 $(package)_config_opts_darwin += -no-freetype
 $(package)_config_opts_darwin += QMAKE_MACOSX_DEPLOYMENT_TARGET=$(OSX_MIN_VERSION)
+$(package)_config_opts_darwin += "QMAKE_CXXFLAGS += -Wno-error=unguarded-availability -Wno-unguarded-availability"
+$(package)_config_opts_darwin += "QMAKE_CFLAGS += -Wno-error=unguarded-availability -Wno-unguarded-availability"
 
 # Optimizing using > -O1 causes non-determinism when building across arches.
 $(package)_config_opts_aarch64_darwin += "QMAKE_CFLAGS_OPTIMIZE_FULL = -O1"

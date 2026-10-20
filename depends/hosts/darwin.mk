@@ -1,11 +1,11 @@
-OSX_MIN_VERSION=10.10
+OSX_MIN_VERSION=10.15
 OSX_SDK_VERSION=10.11
 OSX_SDK=$(SDK_PATH)/MacOSX$(OSX_SDK_VERSION).sdk
 LD64_VERSION=253.9
 darwin_CC=clang -target $(host) -mmacosx-version-min=$(OSX_MIN_VERSION) --sysroot $(OSX_SDK) -mlinker-version=$(LD64_VERSION)
 darwin_CXX=clang++ -target $(host) -mmacosx-version-min=$(OSX_MIN_VERSION) --sysroot $(OSX_SDK) -mlinker-version=$(LD64_VERSION) -stdlib=libc++
 
-darwin_CFLAGS=-pipe
+darwin_CFLAGS=-pipe -Wno-error=unguarded-availability -Wno-unguarded-availability
 darwin_CXXFLAGS=$(darwin_CFLAGS) -D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION -Wno-enum-constexpr-conversion
 
 darwin_release_CFLAGS=-O2
