@@ -13,9 +13,11 @@ namespace interfaces {
 class Node;
 }
 
+#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
 QT_BEGIN_NAMESPACE
 class QNetworkProxy;
 QT_END_NAMESPACE
+#endif
 
 extern const char *DEFAULT_GUI_PROXY_HOST;
 static constexpr unsigned short DEFAULT_GUI_PROXY_PORT = 9050;
@@ -85,7 +87,9 @@ public:
     bool getMinimizeOnClose() const { return fMinimizeOnClose; }
     int getDisplayUnit() const { return nDisplayUnit; }
     QString getThirdPartyTxUrls() const { return strThirdPartyTxUrls; }
+#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
     bool getProxySettings(QNetworkProxy& proxy) const;
+#endif
     bool getCoinControlFeatures() const { return fCoinControlFeatures; }
     bool getShowAdvancedCJUI() { return fShowAdvancedCJUI; }
     const QString& getOverriddenByCommandLine() { return strOverriddenByCommandLine; }

@@ -35,7 +35,9 @@
 #include <QLocalServer>
 #include <QLocalSocket>
 #include <QNetworkAccessManager>
+#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
 #include <QNetworkProxy>
+#endif
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QSslCertificate>
@@ -360,6 +362,7 @@ void PaymentServer::initNetManager()
     // netManager is used to fetch paymentrequests given in gspcoin: URIs
     netManager = new QNetworkAccessManager(this);
 
+#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
     QNetworkProxy proxy;
 
     // Query active SOCKS5 proxy
@@ -370,6 +373,7 @@ void PaymentServer::initNetManager()
     }
     else
         qDebug() << "PaymentServer::initNetManager: No active proxy server found.";
+#endif
 
     connect(netManager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(netRequestFinished(QNetworkReply*)));

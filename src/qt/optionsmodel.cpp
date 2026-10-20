@@ -23,7 +23,9 @@
 #include <coinjoin/coinjoin-client-options.h>
 #endif
 
+#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
 #include <QNetworkProxy>
+#endif
 #include <QSettings>
 #include <QStringList>
 
@@ -672,6 +674,7 @@ void OptionsModel::setDisplayUnit(const QVariant &value)
     }
 }
 
+#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
 bool OptionsModel::getProxySettings(QNetworkProxy& proxy) const
 {
     // Directly query current base proxy, because
@@ -689,6 +692,7 @@ bool OptionsModel::getProxySettings(QNetworkProxy& proxy) const
 
     return false;
 }
+#endif
 
 void OptionsModel::emitCoinJoinEnabledChanged()
 {
