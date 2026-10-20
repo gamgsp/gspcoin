@@ -145,8 +145,10 @@ public:
 #endif
 
 #ifdef WIN32
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
         // Seed OpenSSL PRNG with current contents of the screen
         RAND_screen();
+#endif
 #endif
 
         // Seed OpenSSL PRNG with performance counter

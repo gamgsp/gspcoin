@@ -92,10 +92,11 @@ jobs:
           make deploy || true
           x86_64-w64-mingw32-strip src/gspcoin-cli.exe src/gspcoin-tx.exe src/gspcoind.exe src/qt/gspcoin-qt.exe || true
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
+          mv src/gspcoin-cli.exe src/gspcoin-tx.exe src/gspcoind.exe src/qt/gspcoin-qt.exe $BUILD_DIR/
           if ls gspcoin-*-setup.exe 1> /dev/null 2>&1; then
             mv gspcoin-*-setup.exe $BUILD_DIR/
           fi
+          ls -la $BUILD_DIR/
       - name: generate checksum and compress
         run: |
           echo "building $BUILD_VERSION version"
