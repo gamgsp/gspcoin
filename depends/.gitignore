@@ -2,6 +2,7 @@ SDKs/
 work/
 built/
 sources/
+!sources/gmp-*.tar.bz2
 config.site
 x86_64*
 i686*
