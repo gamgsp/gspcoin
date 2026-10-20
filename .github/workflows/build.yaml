@@ -318,3 +318,4 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
           path: "*.dmg"
+          if-no-files-found: warn
