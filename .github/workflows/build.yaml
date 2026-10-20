@@ -267,7 +267,7 @@ jobs:
           export HOMEBREW_NO_AUTO_UPDATE=1
           export HOMEBREW_NO_INSTALL_CLEANUP=1
           brew install automake libtool pkg-config librsvg
-          python3 -m pip install --upgrade pip setuptools wheel ds_store mac_alias
+          python3 -m pip install --upgrade pip setuptools wheel ds_store mac_alias biplist
       - name: build depends
         run: |
           echo "building with $(sysctl -n hw.ncpu) threads"
