@@ -736,19 +736,20 @@ void PaymentServer::netRequestFinished(QNetworkReply* reply)
     }
 }
 
-#ifndef QT_NO_SSL
 void PaymentServer::reportSslErrors(QNetworkReply* reply, const QList<QSslError> &errs)
 {
     Q_UNUSED(reply);
-
+#ifndef QT_NO_SSL
     QString errString;
     for (const QSslError& err : errs) {
         qWarning() << "PaymentServer::reportSslErrors: " << err;
         errString += err.errorString() + "\n";
     }
     Q_EMIT message(tr("Network request error"), errString, CClientUIInterface::MSG_ERROR);
-}
+#else
+    Q_UNUSED(errs);
 #endif
+}
 
 void PaymentServer::setOptionsModel(OptionsModel *_optionsModel)
 {
