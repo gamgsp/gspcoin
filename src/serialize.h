@@ -363,7 +363,7 @@ struct CheckVarIntMode {
     constexpr CheckVarIntMode()
     {
         static_assert(Mode != VarIntMode::DEFAULT || std::is_unsigned<I>::value, "Unsigned type required with mode DEFAULT.");
-        static_assert(Mode != VarIntMode::NONNEGATIVE_SIGNED || std::is_signed<I>::value, "Signed type required with mode NONNEGATIVE_SIGNED.");
+        static_assert(Mode != VarIntMode::NONNEGATIVE_SIGNED || std::is_integral<I>::value, "Integral type required with mode NONNEGATIVE_SIGNED.");
     }
 };
 
