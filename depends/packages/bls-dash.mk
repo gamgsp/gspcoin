@@ -50,7 +50,7 @@ define $(package)_set_vars
     $(package)_config_opts_darwin+= -DCMAKE_RANLIB="$(host_prefix)/native/bin/$($(package)_ranlib)"
   endif
 
-  $(package)_cppflags+=-UBLSALLOC_SODIUM
+  $(package)_cppflags+=-UBLSALLOC_SODIUM -Dbn_init=relic_bn_init
 endef
 
 define $(package)_preprocess_cmds
@@ -65,7 +65,7 @@ define $(package)_config_cmds
   export CFLAGS="$($(package)_cflags) $($(package)_cppflags)" && \
   export CXXFLAGS="$($(package)_cxxflags) $($(package)_cppflags)" && \
   export LDFLAGS="$($(package)_ldflags)" && \
-  $(host_prefix)/bin/cmake ../ $($(package)_config_opts)
+  $(host_prefix)/bin/cmake ../ $($(package)_config_opts) -DCMAKE_C_FLAGS="$($(package)_cflags) $($(package)_cppflags)" -DCMAKE_CXX_FLAGS="$($(package)_cxxflags) $($(package)_cppflags)"
 endef
 
 define $(package)_build_cmds
