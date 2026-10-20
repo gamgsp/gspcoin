@@ -1813,6 +1813,7 @@ static bool ThreadSafeMessageBox(BitcoinGUI *gui, const std::string& message, co
 
 void BitcoinGUI::subscribeToCoreSignals()
 {
+    using namespace boost::placeholders;
     // Connect signals to client
     m_handler_message_box = m_node.handleMessageBox(boost::bind(ThreadSafeMessageBox, this, _1, _2, _3));
     m_handler_question = m_node.handleQuestion(boost::bind(ThreadSafeMessageBox, this, _1, _3, _4));
