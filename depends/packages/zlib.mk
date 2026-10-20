@@ -5,6 +5,7 @@ $(package)_file_name=$(package)-$($(package)_version).tar.gz
 $(package)_sha256_hash=c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1
 
 define $(package)_set_vars
+$(package)_cflags += -DHAVE_UNISTD_H
 $(package)_build_opts= CC="$($(package)_cc)"
 $(package)_build_opts+=CFLAGS="$($(package)_cflags) $($(package)_cppflags) -fPIC"
 $(package)_build_opts+=RANLIB="$($(package)_ranlib)"
@@ -14,7 +15,7 @@ $(package)_build_opts_darwin+=ARFLAGS="-o"
 endef
 
 define $(package)_config_cmds
-  ./configure --static --prefix=$(host_prefix)
+  CC="$($(package)_cc)" CFLAGS="$($(package)_cflags)" ./configure --static --prefix=$(host_prefix)
 endef
 
 define $(package)_build_cmds
