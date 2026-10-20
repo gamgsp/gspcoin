@@ -51,8 +51,10 @@ jobs:
           name: version
           path: version.txt
 
-  build-ubuntu22:
-    name: Ubuntu22 build
+  # Phase 1: Ubuntu 22 build SUCCESS in Run #221 (artifact: gspcoin-ubuntu22-2.2.0.tar.gz)
+  # Phase 2: Windows 64-bit MinGW build
+  build-win:
+    name: Windows build
     needs: checking-build-version
     runs-on: ubuntu-22.04
     steps:
@@ -68,48 +70,51 @@ jobs:
       - name: Extract version
         run: |
           cat version/version.txt >> $GITHUB_ENV
-          echo "building $BUILD_VERSION version"
+      - name: Install Required Packages
+        run: |
           sudo apt-get update -y
           sudo apt-get upgrade -y
-          sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake zlib1g-dev
+          sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake zip zlib1g-dev nsis
+          sudo apt-get install -y g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
       - name: build depends
         run: |
           echo "building with $(nproc) threads"
-          make -C depends -j$(nproc)
+          make -C depends -j$(nproc) HOST=x86_64-w64-mingw32
       - name: configure
         run: |
           ./autogen.sh
-          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu || (cat config.log && exit 1)
+          ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32 || (cat config.log && exit 1)
       - name: build binary
         run: |
           make -j$(nproc)
+          make deploy || true
+          x86_64-w64-mingw32-strip src/gspcoin-cli.exe src/gspcoin-tx.exe src/gspcoind.exe src/qt/gspcoin-qt.exe || true
           mkdir -p $BUILD_DIR
-          mv src/{gspcoin-cli,gspcoin-tx,gspcoind,qt/gspcoin-qt} $BUILD_DIR/
-          strip $BUILD_DIR/*
+          mv src/{gspcoin-cli.exe,gspcoin-tx.exe,gspcoind.exe,qt/gspcoin-qt.exe} $BUILD_DIR/
+          if ls gspcoin-*-setup.exe 1> /dev/null 2>&1; then
+            mv gspcoin-*-setup.exe $BUILD_DIR/
+          fi
       - name: generate checksum and compress
         run: |
-          echo "buildng $BUILD_VERSION version"
+          echo "building $BUILD_VERSION version"
           cd $BUILD_DIR
-          shasum gspcoin-cli >> checksums.txt
-          sha256sum gspcoin-cli >> checksums.txt
-          shasum gspcoind >> checksums.txt
-          sha256sum gspcoind >> checksums.txt
-          shasum gspcoin-tx >> checksums.txt
-          sha256sum gspcoin-tx >> checksums.txt
-          shasum gspcoin-qt >> checksums.txt
-          sha256sum gspcoin-qt >> checksums.txt
+          for f in *.exe; do
+            [ -e "$f" ] || continue
+            shasum "$f" >> checksums.txt
+            sha256sum "$f" >> checksums.txt
+          done
           cat checksums.txt
           cd ..
-          tar -cvzf ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          zip -r ${COIN_NAME}-win-${BUILD_VERSION}.zip $BUILD_DIR/
           mkdir -p ${COMPRESS_DIR}
-          mv ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
-          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
-          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          mv ${COIN_NAME}-win-${BUILD_VERSION}.zip ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-win-${BUILD_VERSION}.zip >> ${COMPRESS_DIR}/checksums.txt
           cat ${COMPRESS_DIR}/checksums.txt
-      - name: Upload Artifact
+      - name: Upload Binary Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.COIN_NAME }}-ubuntu22-${{ env.BUILD_VERSION }}
+          name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
-
-# (Other OS builds temporarily disabled to focus exclusively on Ubuntu 22)
