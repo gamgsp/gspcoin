@@ -51,8 +51,129 @@ jobs:
           name: version
           path: version.txt
 
-  # Phase 1: Ubuntu 22 build SUCCESS in Run #221 (artifact: gspcoin-ubuntu22-2.2.0.tar.gz)
-  # Phase 2: Windows 64-bit MinGW build
+  build-ubuntu22:
+    name: Ubuntu22 build
+    needs: checking-build-version
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create Artifact Directory
+        run: mkdir -p version
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Extract version
+        run: |
+          cat version/version.txt >> $GITHUB_ENV
+          echo "building $BUILD_VERSION version"
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake zlib1g-dev
+      - name: build depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc)
+      - name: configure
+        run: |
+          ./autogen.sh
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu --with-gui=yes || (cat config.log && exit 1)
+      - name: build binary
+        run: |
+          make -j$(nproc)
+          mkdir -p $BUILD_DIR
+          mv src/gspcoin-cli src/gspcoin-tx src/gspcoind src/qt/gspcoin-qt $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "building $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu22-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-ubuntu22-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
+
+  build-ubuntu24:
+    name: Ubuntu24 build
+    needs: checking-build-version
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create Artifact Directory
+        run: mkdir -p version
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Extract version
+        run: |
+          cat version/version.txt >> $GITHUB_ENV
+          echo "building $BUILD_VERSION version"
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 cmake zlib1g-dev
+          sudo apt-get install -y bsdextrautils || sudo apt-get install -y bsdmainutils || true
+      - name: build depends
+        run: |
+          echo "building with $(nproc) threads"
+          make -C depends -j$(nproc)
+      - name: configure
+        run: |
+          ./autogen.sh
+          ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu --with-gui=yes || (cat config.log && exit 1)
+      - name: build binary
+        run: |
+          make -j$(nproc)
+          mkdir -p $BUILD_DIR
+          mv src/gspcoin-cli src/gspcoin-tx src/gspcoind src/qt/gspcoin-qt $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "building $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu24-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-ubuntu24-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
+
   build-win:
     name: Windows build
     needs: checking-build-version
@@ -119,3 +240,78 @@ jobs:
         with:
           name: ${{ env.COIN_NAME }}-win-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
+
+  build-macos:
+    name: macos build
+    needs: checking-build-version
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create Artifact Directory
+        run: mkdir -p version
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Extract version
+        run: |
+          cat version/version.txt >> $GITHUB_ENV
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Required Packages
+        run: |
+          brew update
+          brew install automake libtool pkg-config librsvg
+          python3 -m pip install --upgrade pip setuptools wheel ds_store mac_alias
+      - name: build depends
+        run: |
+          echo "building with $(sysctl -n hw.ncpu) threads"
+          make -C depends -j$(sysctl -n hw.ncpu) HOST=x86_64-apple-darwin
+      - name: configure
+        run: |
+          ./autogen.sh
+          ./configure --prefix=`pwd`/depends/x86_64-apple-darwin --with-gui=yes || (cat config.log && exit 1)
+      - name: build binary
+        run: |
+          make -j$(sysctl -n hw.ncpu)
+          mkdir -p $BUILD_DIR
+          mv src/gspcoin-cli src/gspcoin-tx src/gspcoind src/qt/gspcoin-qt $BUILD_DIR/
+          strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "building $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          shasum -a 256 gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          shasum -a 256 gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          shasum -a 256 gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          shasum -a 256 gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          shasum -a 256 ${COMPRESS_DIR}/${COIN_NAME}-macos-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-macos-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
+      - name: Generate Macos dmg files
+        run: |
+          make deploy || true
+          ls -la *.dmg || true
+      - name: Upload dmg file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-dmg-${{ env.BUILD_VERSION }}
+          path: "*.dmg"
