@@ -13,7 +13,7 @@ namespace interfaces {
 class Node;
 }
 
-#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
+#ifndef QT_NO_NETWORKPROXY
 QT_BEGIN_NAMESPACE
 class QNetworkProxy;
 QT_END_NAMESPACE
@@ -87,7 +87,7 @@ public:
     bool getMinimizeOnClose() const { return fMinimizeOnClose; }
     int getDisplayUnit() const { return nDisplayUnit; }
     QString getThirdPartyTxUrls() const { return strThirdPartyTxUrls; }
-#if !defined(QT_NO_NETWORKPROXY) && (!defined(QT_CONFIG) || QT_CONFIG(networkproxy))
+#ifndef QT_NO_NETWORKPROXY
     bool getProxySettings(QNetworkProxy& proxy) const;
 #endif
     bool getCoinControlFeatures() const { return fCoinControlFeatures; }
