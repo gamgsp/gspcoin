@@ -85,7 +85,7 @@ jobs:
       - name: configure
         run: |
           ./autogen.sh
-          ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32 || (cat config.log && exit 1)
+          ./configure --prefix=`pwd`/depends/x86_64-w64-mingw32 --with-gui=yes || (cat config.log && exit 1)
       - name: build binary
         run: |
           make -j$(nproc)

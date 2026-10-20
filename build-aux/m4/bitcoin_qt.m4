@@ -326,6 +326,17 @@ AC_DEFUN([_BITCOIN_QT_FIND_STATIC_PLUGINS],[
         PKG_CHECK_MODULES([QTCLIPBOARD], [Qt5ClipboardSupport${qt_lib_suffix}], [QT_LIBS="-lQt5ClipboardSupport${qt_lib_suffix} $QT_LIBS"])
         PKG_CHECK_MODULES([QTGRAPHICS], [Qt5GraphicsSupport${qt_lib_suffix}], [QT_LIBS="-lQt5GraphicsSupport${qt_lib_suffix} $QT_LIBS"])
         PKG_CHECK_MODULES([QTCGL], [Qt5CglSupport${qt_lib_suffix}], [QT_LIBS="-lQt5CglSupport${qt_lib_suffix} $QT_LIBS"])
+      elif test "x$TARGET_OS" = xwindows; then
+        QT_LIBS="$QT_LIBS -ldwmapi -luxtheme -lole32 -loleaut32 -luuid -limm32 -lwinmm -lwinspool -lwtsapi32"
+        PKG_CHECK_MODULES([QTWINDOWSUIAUTOMATION], [Qt5WindowsUIAutomationSupport${qt_lib_suffix}], [QT_LIBS="-lQt5WindowsUIAutomationSupport${qt_lib_suffix} $QT_LIBS"], [
+          CHECK_UIAUTOMATION_TEMP_LIBS="$LIBS"
+          LIBS="-lQt5WindowsUIAutomationSupport $QT_LIBS $LIBS"
+          AC_LINK_IFELSE([AC_LANG_PROGRAM([[ ]], [[return 0;]])],
+            [QT_LIBS="-lQt5WindowsUIAutomationSupport $QT_LIBS"],
+            [:]
+          )
+          LIBS="$CHECK_UIAUTOMATION_TEMP_LIBS"
+        ])
       fi
     fi
 ])
