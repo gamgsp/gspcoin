@@ -7,11 +7,14 @@
 #include <qt/clientmodel.h>
 #include <qt/guiutil.h>
 
-#include <QPainter>
 #include <QColor>
+#include <QPainter>
+#include <QPainterPath>
+#include <QPen>
 #include <QTimer>
 
 #include <cmath>
+#include <functional>
 
 #define XMARGIN                 10
 #define YMARGIN                 10
