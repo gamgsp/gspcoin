@@ -244,7 +244,7 @@ jobs:
   build-macos:
     name: macos build
     needs: checking-build-version
-    runs-on: macos-13
+    runs-on: macos-15-intel
     steps:
       - name: Checkout
         uses: actions/checkout@v4
