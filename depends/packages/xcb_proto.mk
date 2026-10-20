@@ -9,11 +9,12 @@ define $(package)_config_cmds
 endef
 
 define $(package)_build_cmds
+  echo '#!/bin/sh' > py-compile && echo 'exit 0' >> py-compile && chmod +x py-compile && \
   $(MAKE)
 endef
 
 define $(package)_stage_cmds
-  $(MAKE) DESTDIR=$($(package)_staging_dir) install
+  $(MAKE) DESTDIR=$($(package)_staging_dir) py_compile=true install
 endef
 
 define $(package)_postprocess_cmds
