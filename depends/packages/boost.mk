@@ -31,6 +31,7 @@ $(package)_config_libraries=chrono,filesystem,program_options,system,thread,test
 $(package)_cxxflags+=-std=c++17 -fvisibility=hidden
 $(package)_cxxflags_linux=-fPIC
 $(package)_cxxflags_android=-fPIC
+$(package)_cxxflags_darwin=-D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION -Wno-enum-constexpr-conversion
 endef
 
 define $(package)_preprocess_cmds

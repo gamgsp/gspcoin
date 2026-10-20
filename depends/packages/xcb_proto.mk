@@ -9,7 +9,7 @@ define $(package)_config_cmds
 endef
 
 define $(package)_build_cmds
-  echo '#!/bin/sh' > py-compile && echo 'exit 0' >> py-compile && chmod +x py-compile && \
+  rm -f py-compile && printf '#!/bin/sh\nexit 0\n' > py-compile && chmod +x py-compile && \
   $(MAKE)
 endef
 
