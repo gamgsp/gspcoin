@@ -10,6 +10,7 @@
 #include <map>
 #include <mutex>
 #include <memory>
+#include <stdexcept>
 #include <unordered_map>
 
 /**
