@@ -571,7 +571,8 @@ public:
         std::vector<FounderRewardStructure> rewardStructures = {  {INT_MAX, 2} };
         consensus.nFounderPayment = FounderPayment(rewardStructures, 220);
         consensus.nCollaterals = SmartnodeCollaterals(
-          { {100000, 1000000 * COIN},
+          { {5000, 2500000 * COIN},
+            {100000, 1000000 * COIN},
             {200000, 1100000 * COIN},
             {300000, 1200000 * COIN},
             {400000, 1300000 * COIN},
