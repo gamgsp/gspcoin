@@ -174,6 +174,69 @@ jobs:
           name: ${{ env.COIN_NAME }}-ubuntu24-${{ env.BUILD_VERSION }}
           path: ${{ env.COMPRESS_DIR }}
 
+  build-ubuntu24-arm64:
+    name: Ubuntu24 ARM64 build
+    needs: checking-build-version
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create Artifact Directory
+        run: mkdir -p version
+      - name: Getting Version
+        uses: actions/download-artifact@v4
+        with:
+          name: version
+          path: version
+      - name: Extract version
+        run: |
+          cat version/version.txt >> $GITHUB_ENV
+          echo "building $BUILD_VERSION version"
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt-get install -y curl build-essential libtool autotools-dev automake pkg-config python3 cmake zlib1g-dev m4 bison flex
+          sudo apt-get install -y g++-aarch64-linux-gnu gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+          sudo apt-get install -y bsdextrautils || sudo apt-get install -y bsdmainutils || true
+      - name: build depends
+        run: |
+          echo "building ARM64 depends with $(nproc) threads"
+          make -C depends -j$(nproc) HOST=aarch64-linux-gnu
+      - name: configure
+        run: |
+          ./autogen.sh
+          ./configure --prefix=`pwd`/depends/aarch64-linux-gnu --with-gui=yes || (cat config.log && exit 1)
+      - name: build binary
+        run: |
+          make -j$(nproc)
+          mkdir -p $BUILD_DIR
+          mv src/gspcoin-cli src/gspcoin-tx src/gspcoind src/qt/gspcoin-qt $BUILD_DIR/
+          aarch64-linux-gnu-strip $BUILD_DIR/*
+      - name: generate checksum and compress
+        run: |
+          echo "building $BUILD_VERSION version"
+          cd $BUILD_DIR
+          shasum gspcoin-cli >> checksums.txt
+          sha256sum gspcoin-cli >> checksums.txt
+          shasum gspcoind >> checksums.txt
+          sha256sum gspcoind >> checksums.txt
+          shasum gspcoin-tx >> checksums.txt
+          sha256sum gspcoin-tx >> checksums.txt
+          shasum gspcoin-qt >> checksums.txt
+          sha256sum gspcoin-qt >> checksums.txt
+          cat checksums.txt
+          cd ..
+          tar -cvzf ${COIN_NAME}-ubuntu24-arm64-${BUILD_VERSION}.tar.gz $BUILD_DIR/*
+          mkdir -p ${COMPRESS_DIR}
+          mv ${COIN_NAME}-ubuntu24-arm64-${BUILD_VERSION}.tar.gz ${COMPRESS_DIR}/
+          shasum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu24-arm64-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          sha256sum ${COMPRESS_DIR}/${COIN_NAME}-ubuntu24-arm64-${BUILD_VERSION}.tar.gz >> ${COMPRESS_DIR}/checksums.txt
+          cat ${COMPRESS_DIR}/checksums.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.COIN_NAME }}-ubuntu24-arm64-${{ env.BUILD_VERSION }}
+          path: ${{ env.COMPRESS_DIR }}
+
   build-win:
     name: Windows build
     needs: checking-build-version
