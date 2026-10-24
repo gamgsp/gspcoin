@@ -189,5 +189,6 @@ void UpdateDevnetLLMQChainLocks(Consensus::LLMQType llmqType);
 void UpdateDevnetLLMQInstantSend(Consensus::LLMQType llmqType);
 
 void UpdateLLMQParams(size_t totalMnCount, int height, bool lowLLMQParams = false);
+const Consensus::LLMQParams* GetLLMQParamsForCommitment(Consensus::LLMQType llmqType, size_t size);
 
 #endif // BITCOIN_CHAINPARAMS_H

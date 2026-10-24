@@ -1180,3 +1180,24 @@ void CChainParams::UpdateLLMQParams(size_t totalMnCount, int height, bool lowLLM
 	}
 
 }
+
+const Consensus::LLMQParams* GetLLMQParamsForCommitment(Consensus::LLMQType llmqType, size_t size)
+{
+    if (llmqType == Consensus::LLMQ_50_60) {
+        if (size == 50) return &llmq50_60;
+        if (size == 10) return &llmq10_60;
+        if (size == 3)  return &llmq3_60;
+        if (size == 200) return &llmq200_2;
+    } else if (llmqType == Consensus::LLMQ_400_60) {
+        if (size == 400) return &llmq400_60;
+        if (size == 40)  return &llmq40_60;
+        if (size == 20)  return &llmq20_60;
+        if (size == 5)   return &llmq5_60;
+    } else if (llmqType == Consensus::LLMQ_400_85) {
+        if (size == 400) return &llmq400_85;
+        if (size == 40)  return &llmq40_85;
+        if (size == 20)  return &llmq20_85;
+        if (size == 5)   return &llmq5_85;
+    }
+    return nullptr;
+}

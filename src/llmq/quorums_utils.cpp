@@ -19,13 +19,16 @@ namespace llmq
 CCriticalSection cs_llmq_vbc;
 VersionBitsCache llmq_versionbitscache;
 
-std::vector<CDeterministicMNCPtr> CLLMQUtils::GetAllQuorumMembers(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum)
+std::vector<CDeterministicMNCPtr> CLLMQUtils::GetAllQuorumMembers(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, size_t customSize)
 {
     if(!IsQuorumTypeEnabled(llmqType, pindexQuorum->pprev)) {
         return {};
     }
     static CCriticalSection cs_members;
     static std::map<Consensus::LLMQType, unordered_lru_cache<uint256, std::vector<CDeterministicMNCPtr>, StaticSaltedHasher>> mapQuorumMembers;
+
+    auto& params = Params().GetConsensus().llmqs.at(llmqType);
+    size_t qSize = customSize > 0 ? customSize : (size_t)params.size;
 
     std::vector<CDeterministicMNCPtr> quorumMembers;
     {
@@ -34,14 +37,15 @@ std::vector<CDeterministicMNCPtr> CLLMQUtils::GetAllQuorumMembers(Consensus::LLM
             InitQuorumsCache(mapQuorumMembers);
         }
         if (mapQuorumMembers[llmqType].get(pindexQuorum->GetBlockHash(), quorumMembers)) {
-            return quorumMembers;
+            if (quorumMembers.size() == qSize) {
+                return quorumMembers;
+            }
         }
     }
 
-    auto& params = Params().GetConsensus().llmqs.at(llmqType);
     auto allMns = deterministicMNManager->GetListForBlock(pindexQuorum);
     auto modifier = ::SerializeHash(std::make_pair(llmqType, pindexQuorum->GetBlockHash()));
-    quorumMembers = allMns.CalculateQuorum(params.size, modifier);
+    quorumMembers = allMns.CalculateQuorum(qSize, modifier);
     LOCK(cs_members);
     mapQuorumMembers[llmqType].insert(pindexQuorum->GetBlockHash(), quorumMembers);
     return quorumMembers;

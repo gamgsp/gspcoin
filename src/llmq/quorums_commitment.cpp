@@ -35,11 +35,16 @@ bool CFinalCommitment::Verify(const CBlockIndex* pQuorumIndex, bool checkSigs) c
         LogPrintfFinalCommitment("invalid llmqType=%d\n", llmqType);
         return false;
     }
-    const auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)llmqType);
-
-    if (!VerifySizes(params)) {
-        return false;
+    const auto* pParams = &Params().GetConsensus().llmqs.at((Consensus::LLMQType)llmqType);
+    if (!VerifySizes(*pParams)) {
+        const auto* pAlt = GetLLMQParamsForCommitment((Consensus::LLMQType)llmqType, signers.size());
+        if (pAlt && VerifySizes(*pAlt)) {
+            pParams = pAlt;
+        } else {
+            return false;
+        }
     }
+    const auto& params = *pParams;
 
     if (CountValidMembers() < params.minSize) {
         LogPrintfFinalCommitment("invalid validMembers count. validMembersCount=%d\n", CountValidMembers());
@@ -66,7 +71,7 @@ bool CFinalCommitment::Verify(const CBlockIndex* pQuorumIndex, bool checkSigs) c
         return false;
     }
 
-    auto members = CLLMQUtils::GetAllQuorumMembers(llmqType, pQuorumIndex);
+    auto members = CLLMQUtils::GetAllQuorumMembers(llmqType, pQuorumIndex, params.size);
     for (size_t i = members.size(); i < params.size; i++) {
         if (validMembers[i]) {
             LogPrintfFinalCommitment("invalid validMembers bitset. bit %d should not be set\n", i);
@@ -110,9 +115,16 @@ bool CFinalCommitment::VerifyNull() const
         LogPrintfFinalCommitment("invalid llmqType=%d\n", llmqType);
         return false;
     }
-    const auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)llmqType);
+    if (!IsNull()) {
+        return false;
+    }
 
-    if (!IsNull() || !VerifySizes(params)) {
+    const auto* pParams = &Params().GetConsensus().llmqs.at((Consensus::LLMQType)llmqType);
+    if (!VerifySizes(*pParams)) {
+        const auto* pAlt = GetLLMQParamsForCommitment((Consensus::LLMQType)llmqType, signers.size());
+        if (pAlt && VerifySizes(*pAlt)) {
+            return true;
+        }
         return false;
     }
 
