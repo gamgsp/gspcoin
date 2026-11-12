@@ -72,12 +72,17 @@ GSP Coin utilizes the **GhostRider** algorithm to protect the network from centr
 
 ---
 
-## 4. Automated Node & Daemon Setup (`gspcdaemon.sh`)
+# GSPCoin (`gspcoind`) — Node & Daemon Setup Guide
 
-`gspcdaemon.sh` automates the complete setup of a **GSPCoin (`gspcoind`)** node on **Linux** (Ubuntu, Debian, RHEL/CentOS/AlmaLinux/Rocky, Fedora, Arch, openSUSE) and **macOS** (Intel & Apple Silicon).
+This guide covers automated installation on **Linux** and **macOS** using `gspcdaemon.sh`, as well as manual setup instructions for **Windows**.
+
+---
+
+## Linux & macOS (Automated Script)
+
+The `gspcdaemon.sh` script automates the complete setup of a **GSPCoin (`gspcoind`)** node on **Linux** (Ubuntu, Debian, RHEL/CentOS/AlmaLinux/Rocky, Fedora, Arch, openSUSE) and **macOS** (Intel & Apple Silicon).
 
 ### What the Script Does
-
 1. **OS & Architecture Detection:** Automatically detects your operating system and CPU architecture (`x86_64` or `arm64`) and installs required dependencies (`curl`, `wget`, `unzip`, `tar`).
 2. **Swap Configuration (Linux):** Creates and enables a persistent **2GB swapfile** (`/swapfile`) if one is not already active.
 3. **Binary Installation:** Fetches the matching `v2.2.2` release binary from GitHub, extracts `gspcoind` and `gspcoin-cli`, and installs them into `/usr/local/bin`.
@@ -90,55 +95,140 @@ GSP Coin utilizes the **GhostRider** algorithm to protect the network from centr
 
 ### Quick Install Commands
 
-Choose the command below that matches your operating system and server environment:
-
 #### 1. Standard Linux (Ubuntu, Debian, CentOS/RHEL, AlmaLinux, Rocky, Fedora, Arch, openSUSE)
 **When to use:** Use this on any standard Linux VPS or dedicated server where you are logged in as a regular user with `sudo` privileges (or as `root` with `curl` installed).
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh -o gspcdaemon.sh && chmod +x gspcdaemon.sh && sudo ./gspcdaemon.sh && rm -f gspcdaemon.sh
+curl -fsSL [https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh](https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh) -o gspcdaemon.sh && chmod +x gspcdaemon.sh && sudo ./gspcdaemon.sh && rm -f gspcdaemon.sh
 ```
 
 #### 2. Minimal Linux Fallback (No `curl` or `sudo` Pre-Installed)
 **When to use:** Use this on bare-bones cloud images (such as minimal Ubuntu/Debian containers or fresh VPS installs) where `curl` or `sudo` is missing and you are logged in directly as `root`.
 
 ```bash
-wget -qO gspcdaemon.sh https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
+wget -qO gspcdaemon.sh [https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh](https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh) && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
 ```
 
 #### 3. macOS (Intel & Apple Silicon M1/M2/M3/M4)
 **When to use:** Use this in your macOS Terminal. Run it as your **normal macOS user** (do **not** prefix the command with `sudo`; the script will prompt for your password only when copying binaries into `/usr/local/bin`).
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh -o gspcdaemon.sh && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
+curl -fsSL [https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh](https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh) -o gspcdaemon.sh && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
 ```
 
 > **Note for Apple Silicon Macs:** If the `v2.2.2` release provides an Intel (`x86_64`) macOS binary, ensure Rosetta 2 is installed (`softwareupdate --install-rosetta --agree-to-license`) before running the script.
->
+
 > **Security Note:** During installation, you will be prompted to enter your desired **RPC Username** and **RPC Password**. Your password input is hidden while typing and saved with `chmod 600` permissions inside `gspcoin.conf`.
 
-### Managing the Daemon After Installation
+---
 
-#### Check Sync & Blockchain Status
-```bash
-gspcoin-cli getblockchaininfo
+## Windows (Manual Setup)
+
+Follow these steps to download, configure, bootstrap, and run the GSPCoin daemon on **Windows 10 / Windows 11 / Windows Server**:
+
+### Step 1: Download the Windows Binaries & Bootstrap Snapshot
+1. Go to the [GSPCoin v2.2.2 Releases Page](https://github.com/gamgsp/gspcoin/releases/tag/v2.2.2).
+2. Download the **Windows release zip** (e.g., `gspcoin-win64-2.2.2.zip` or `gspcoin-windows-...zip`).
+3. Download the **Bootstrap Snapshot**: `Bootstrap-Snapshot-24-Oct-2026.zip`.
+
+### Step 2: Extract the GSPCoin Program Files
+1. Create a folder on your `C:\` drive named `C:\GSPCoin`.
+2. Right-click the downloaded Windows release `.zip` file, click **Extract All...**, and extract its contents into `C:\GSPCoin`.
+3. Ensure `gspcoind.exe` and `gspcoin-cli.exe` (and `gspcoin-qt.exe` if included) are located inside `C:\GSPCoin` (or `C:\GSPCoin\bin`).
+
+### Step 3: Create the Data Directory & `gspcoin.conf`
+1. Press `Win + R` on your keyboard, type `%APPDATA%`, and press **Enter**.
+2. Create a new folder named `GSPCoinCore` (full path: `C:\Users\<YourUsername>\AppData\Roaming\GSPCoinCore`).
+3. Open **Notepad**, paste the configuration below (replace `YOUR_RPC_USERNAME` and `YOUR_RPC_PASSWORD` with your own credentials), and save it inside `GSPCoinCore` as `gspcoin.conf` *(set "Save as type" to **All Files (*.*)** so Windows does not save it as `gspcoin.conf.txt`)*:
+
+```ini
+rpcuser=YOUR_RPC_USERNAME
+rpcpassword=YOUR_RPC_PASSWORD
+rpcport=15167
+server=1
+listen=1
+addressindex=1
+spentindex=1
+txindex=1
+rpcthreads=16
+rpcworkqueue=256
+dbcache=256
+addnode=15.206.178.246
+addnode=109.173.167.18
+addnode=92.5.79.95
+addnode=144.24.172.207
+addnode=81.148.102.220
+addnode=129.146.20.199
+addnode=212.47.77.200
+addnode=94.250.203.169
+addnode=37.26.136.250
+addnode=129.146.161.225
+addnode=37.59.20.42
+addnode=223.178.211.104
+addnode=[2401:4900:1c2b:5674:93c:d1d7:bdf3:8c9a]
+addnode=79.115.88.245
+addnode=164.68.112.217
+addnode=78.153.91.188
+addnode=[2a01:3d8:33d:6a00:e5a0:480e:d942:de49]
+addnode=[2a02:842b:1700:3f01:f4fd:412c:511a:83e7]
+addnode=37.67.204.246
+addnode=37.49.50.54
+addnode=[2a02:8071:5a42:2260:5063:98c9:208a:1bee]
+addnode=34.87.170.118
+addnode=34.165.113.110
+addnode=35.237.132.159
+addnode=136.87.94.13
 ```
 
-#### Check Connected Peers
-```bash
-gspcoin-cli getnetworkinfo
-```
+### Step 4: Extract the Bootstrap Snapshot
+1. Right-click `Bootstrap-Snapshot-24-Oct-2026.zip` and choose **Extract All...**.
+2. Set the destination path to `%APPDATA%\GSPCoinCore` (so that the `blocks` and `chainstate` folders sit directly inside `C:\Users\<YourUsername>\AppData\Roaming\GSPCoinCore`).
+3. Once extraction finishes, you may delete both downloaded `.zip` files to free up disk space.
 
-#### Service Management Commands
+### Step 5: Start & Verify the Daemon
+1. Open **Command Prompt (cmd)** or **PowerShell** and navigate to your GSPCoin folder:
+   ```cmd
+   cd C:\GSPCoin
+   ```
+   *(If the executables are inside a `bin` subfolder, run `cd C:\GSPCoin\bin` instead.)*
+2. Start the daemon:
+   ```cmd
+   gspcoind.exe -daemon
+   ```
+   *(Note: If your Windows build runs in the foreground instead of detaching with `-daemon`, leave that terminal window open and open a second Command Prompt window for the commands below.)*
+3. Wait 15–30 seconds for initialization, then check sync status:
+   ```cmd
+   gspcoin-cli.exe getblockchaininfo
+   ```
+4. To safely stop the daemon on Windows at any time:
+   ```cmd
+   gspcoin-cli.exe stop
+   ```
 
-- **Linux (`systemd`):**
+> **Optional — Auto-Start on Windows Boot:** Press `Win + R`, type `shell:startup`, and press **Enter**. Create a shortcut to `C:\GSPCoin\gspcoind.exe` inside that Startup folder so the daemon launches automatically whenever you sign in to Windows.
+
+---
+
+## Managing the Daemon After Installation
+
+### Check Sync & Blockchain Status
+* **Linux / macOS:** `gspcoin-cli getblockchaininfo`
+* **Windows:** `gspcoin-cli.exe getblockchaininfo`
+
+### Check Connected Peers
+* **Linux / macOS:** `gspcoin-cli getnetworkinfo`
+* **Windows:** `gspcoin-cli.exe getnetworkinfo`
+
+### Service Management Commands
+
+* **Linux (`systemd`):**
   ```bash
   sudo systemctl status gspcoind    # Check service status
   sudo systemctl restart gspcoind   # Restart daemon
   sudo systemctl stop gspcoind      # Stop daemon
   ```
 
-- **macOS (`launchd`):**
+* **macOS (`launchd`):**
   ```bash
   launchctl list | grep gspcoin                                         # Check service status
   launchctl unload ~/Library/LaunchAgents/com.gspcoin.gspcoind.plist    # Stop daemon
