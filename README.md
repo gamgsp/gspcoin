@@ -196,7 +196,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
 ### Global Ads Media, LLC (Parent Organization)
 <p align="center">
   <a href="https://globaladsmedia.us" target="_blank">
-    <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/globaladsmedia.png" alt="Global Ads Media" width="220" />
+    <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Ads%20Media/globaladsmedia-black-300-90.png?raw=true" alt="Global Ads Media" width="220" />
   </a>
 </p>
 
@@ -220,7 +220,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://1dollarcloud.com" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/1dollarcloud.png" alt="1 Dollar Cloud" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/1dollarcloud/1dollarcloud-black-300-60.png?raw=true" alt="1 Dollar Cloud" width="130" /><br />
           <strong>1 Dollar Cloud</strong>
         </a>
       </td>
@@ -234,7 +234,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://globaltradepulse.com" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/globaltradepulse.png" alt="Global Trade Pulse" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Trade%20Pulse/gtp-logo-black.png" alt="Global Trade Pulse" width="130" /><br />
           <strong>Global Trade Pulse</strong>
         </a>
       </td>
@@ -248,7 +248,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://exchange.gspcoin.us" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/gspcexchange.png" alt="GSPC Exchange" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/GSPC%20Exchange/gspcexc-dark-logo.png?raw=true" alt="GSPC Exchange" width="130" /><br />
           <strong>GSPC Exchange</strong>
         </a>
       </td>
@@ -262,7 +262,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://tryyourluck.today" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/tryyourluck.png" alt="TryYourLuck" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Try%20Your%20Luck/tryyourluck-logo.png?raw=true" alt="TryYourLuck" width="130" /><br />
           <strong>TryYourLuck</strong>
         </a>
       </td>
@@ -276,7 +276,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://1url.my" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/1url.png" alt="1url" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/1url/1url-black-1024-380.png?raw=true" alt="1url" width="130" /><br />
           <strong>1url</strong>
         </a>
       </td>
@@ -290,7 +290,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://worldnewsguru.us" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/worldnewsguru.png" alt="World News Guru" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/World%20News%20Guru/wnglogo-black-512-167.png?raw=true" alt="World News Guru" width="130" /><br />
           <strong>World News Guru</strong>
         </a>
       </td>
@@ -304,7 +304,7 @@ GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and it
     <tr>
       <td align="center">
         <a href="https://globalcricinfo.com" target="_blank">
-          <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/globalcricinfo.png" alt="Global Cric Info" width="130" /><br />
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Cric%20Info/global%20cric%20info%20logo%20black.png?raw=true" alt="Global Cric Info" width="130" /><br />
           <strong>Global Cric Info</strong>
         </a>
       </td>
