@@ -1,7 +1,7 @@
-# GSP Coin Core (`gspcoind`)
+# GSP Coin
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/gamgsp/globaldata/main/subsidiaries/globaladsmedia.png" alt="Global Ads Media Logo" width="160" />
+  <img src="https://github.com/gamgsp/globaldata/blob/main/GSP%20Coin/gspcname%20black2.png?raw=true" alt="GSP Coin Logo" width="160" />
   <br />
   <strong>Decentralized Layer-1 Proof-of-Work Blockchain Fueling Next-Generation Digital Advertising, DeFi & Global Commercial Utility</strong>
   <br /><br />
