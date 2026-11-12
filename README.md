@@ -57,8 +57,8 @@ By combining an ASIC/FPGA-resistant Proof-of-Work hashing algorithm (**GhostRide
 | **51% Attack Protection** | **ChainLocks** via Long-Living Masternode Quorums (LLMQ) |
 | **Instant Transactions** | **InstantSend** (Deterministic sub-second lockups) |
 | **Privacy Technology** | Decentralized on-chain **CoinJoin** mixing in core wallet |
-| **P2P Port** | `15168` (Testnet: `15169`) |
-| **RPC Port** | `15167` (Testnet: `15170`) |
+| **P2P Port** | `27653` |
+| **RPC Port** | `15167` |
 | **ElectrumX Ports** | TCP: `50001` \| SSL: `50002` \| WSS: `50003` |
 
 ---
