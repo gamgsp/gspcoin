@@ -283,130 +283,195 @@ sudo make install
 
 GSP Coin is backed and continuously utilized by **Global Ads Media, LLC** and its network of seven active commercial tech subsidiaries, creating a closed-loop economic ecosystem with organic utility, recurring transaction velocity, and continuous token burn mechanics.
 
+---
+
+## 🏢 Parent Company & Commercial Subsidiaries Matrix
+
+Proudly engineered, operated, and maintained under the digital infrastructure and technology umbrella of **Global Ads Media, LLC**.
+
 ### Global Ads Media, LLC (Parent Organization)
 <p align="center">
-  <a href="https://globaladsmedia.us" target="_blank">
-    <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Ads%20Media/globaladsmedia-black-300-90.png?raw=true" alt="Global Ads Media" width="220" />
+  <a href="https://globaladsmedia.us" target="_blank" rel="noopener noreferrer">
+    <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Ads%20Media/globaladsmedia-black-1024-300.png?raw=true" alt="Global Ads Media, LLC" width="280" />
   </a>
 </p>
 
-* **Website:** [https://globaladsmedia.us](https://globaladsmedia.us)
+* **Website:** <a href="https://globaladsmedia.us" target="_blank" rel="noopener noreferrer">https://globaladsmedia.us</a>
 * **Sector:** Enterprise Digital Marketing, AdTech Infrastructure & Global Traffic Aggregation
-* **Role in GSPC Ecosystem:** Global Ads Media operates automated programmatic advertising, high-volume Real-Time Bidding (RTB), and audience segmentation engines. Global Ads Media uses GSPC as an institutional clearing instrument for advertiser billing and publisher payouts, driving high-volume merchant settlements and reducing payment processing fees.
+* **Overview:** Global Ads Media operates automated programmatic advertising, high-volume Real-Time Bidding (RTB), and audience segmentation engines, linking next-generation web technologies, fintech, and digital media platforms into a unified commercial ecosystem.
 
 ---
 
-### Commercial Subsidiaries & GSPC Utility Integration
+### Commercial Subsidiaries
 
 <table>
   <thead>
     <tr>
-      <th width="180">Subsidiary</th>
+      <th width="200">Subsidiary</th>
       <th width="140">Sector</th>
-      <th>Commercial Description & GSPC Utility</th>
+      <th>Commercial Description & Official Website</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td align="center">
-        <a href="https://1dollarcloud.com" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/1dollarcloud/1dollarcloud-black-300-60.png?raw=true" alt="1 Dollar Cloud" width="130" /><br />
+        <a href="https://1dollarcloud.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/1dollarcloud/1dollarcloud-black-1024-210.png?raw=true" alt="1 Dollar Cloud" width="140" /><br />
           <strong>1 Dollar Cloud</strong>
         </a>
       </td>
-      <td><strong>Cloud & VPS Infrastructure</strong></td>
+      <td><strong>Cloud & Hosting</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://1dollarcloud.com">1dollarcloud.com</a><br />
-        Enterprise-grade NVMe shared hosting, scalable Cloud VPS, dedicated bare-metal infrastructure, SSL certificates, and domain registration starting at $1.00/month.<br />
-        <strong>GSPC Utility:</strong> 15% billing discount when paid in GSPC. Provides 1-click pre-configured hosting images for GSPC Smartnodes, driving recurring monthly retail demand.
+        <strong>Website:</strong> <a href="https://1dollarcloud.com" target="_blank" rel="noopener noreferrer">1dollarcloud.com</a><br />
+        Affordable, high-performance NVMe cloud hosting, Cloud VPS, dedicated infrastructure, and domain registration starting at just $1 per month.
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="https://globaltradepulse.com" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Trade%20Pulse/gtp-logo-black.png" alt="Global Trade Pulse" width="130" /><br />
-          <strong>Global Trade Pulse</strong>
+        <a href="https://gspcoin.us" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/GSP%20Coin/gspcname%201024x452%20black.png?raw=true" alt="GSP Coin" width="140" /><br />
+          <strong>GSP Coin</strong>
         </a>
       </td>
-      <td><strong>Quantitative Intelligence</strong></td>
+      <td><strong>Layer-1 Blockchain</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://globaltradepulse.com">globaltradepulse.com</a><br />
-        Real-time financial intelligence scanner tracking US Equities (NYSE/NASDAQ), Indian Markets (NSE/BSE), European indexes, and Spot Gold (XAUUSD) with ORB breakout and VWAP telemetry.<br />
-        <strong>GSPC Utility:</strong> Institutional-grade quantitative API feeds and real-time algorithmic trade alerts are unlocked exclusively via tiered GSPC staking lockups.
+        <strong>Website:</strong> <a href="https://gspcoin.us" target="_blank" rel="noopener noreferrer">gspcoin.us</a><br />
+        An enterprise-grade, decentralized Layer-1 cryptocurrency designed for global commercial transactions, high-yield Smartnodes, and AdTech settlement.
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="https://exchange.gspcoin.us" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/GSPC%20Exchange/gspcexc-dark-logo.png?raw=true" alt="GSPC Exchange" width="130" /><br />
+        <a href="https://exchange.gspcoin.us" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/GSPC%20Exchange/gspcexc-dark-logo.png?raw=true" alt="GSPC Exchange" width="140" /><br />
           <strong>GSPC Exchange</strong>
         </a>
       </td>
       <td><strong>DeFi & P2P Trading</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://exchange.gspcoin.us">exchange.gspcoin.us</a><br />
-        Next-generation non-custodial P2P spot crypto market and automated on-chain escrow supporting 52+ trading pairs across 21 major digital assets.<br />
-        <strong>GSPC Utility:</strong> Primary base pair asset. 0.5% flat trading fee with a 50% discount (to 0.25%) when paying fees in GSPC. 100% of accumulated GSPC trading fees are burned on-chain.
+        <strong>Website:</strong> <a href="https://exchange.gspcoin.us" target="_blank" rel="noopener noreferrer">exchange.gspcoin.us</a><br />
+        A secure, non-custodial P2P cryptocurrency escrow exchange featuring automated order matching, multi-chain settlement, and zero middleman risk.
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="https://tryyourluck.today" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/Try%20Your%20Luck/tryyourluck-logo.png?raw=true" alt="TryYourLuck" width="130" /><br />
-          <strong>TryYourLuck</strong>
-        </a>
-      </td>
-      <td><strong>Digital Goods & Draws</strong></td>
-      <td>
-        <strong>Website:</strong> <a href="https://tryyourluck.today">tryyourluck.today</a><br />
-        $1.00 consumer digital software marketplace (e.g., Email Cleaner Desktop Suite) bundled with guaranteed bonus tickets into provably fair prize draws with verified physical delivery.<br />
-        <strong>GSPC Utility:</strong> Micro-transactions for digital downloads and raffle ticket entries settle seamlessly in GSPC without credit card processing fees or merchant chargebacks.
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <a href="https://1url.my" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/1url/1url-black-1024-380.png?raw=true" alt="1url" width="130" /><br />
+        <a href="https://1url.my" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/1url/1url-black-1024-380.png?raw=true" alt="1url" width="140" /><br />
           <strong>1url</strong>
         </a>
       </td>
-      <td><strong>Enterprise SaaS & Links</strong></td>
+      <td><strong>Enterprise SaaS</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://1url.my">1url.my</a><br />
-        Enterprise URL shortener, branded vanity domains, QR code generation, and traffic monetization engine for publishers, marketing agencies, and content creators.<br />
-        <strong>GSPC Utility:</strong> Enterprise API subscriptions and custom domain tiers are billed in GSPC. Publisher link monetization payouts are disbursed in GSPC for instant global delivery.
+        <strong>Website:</strong> <a href="https://1url.my" target="_blank" rel="noopener noreferrer">1url.my</a><br />
+        A high-performance URL shortening and link management service that allows businesses and individuals to create custom, branded, and trackable smart links.
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="https://worldnewsguru.us" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/World%20News%20Guru/wnglogo-black-512-167.png?raw=true" alt="World News Guru" width="130" /><br />
+        <a href="https://globaltradepulse.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Trade%20Pulse/gtp-logo-black.png?raw=true" alt="Global Trade Pulse" width="140" /><br />
+          <strong>Global Trade Pulse</strong>
+        </a>
+      </td>
+      <td><strong>Quantitative Intelligence</strong></td>
+      <td>
+        <strong>Website:</strong> <a href="https://globaltradepulse.com" target="_blank" rel="noopener noreferrer">globaltradepulse.com</a><br />
+        An algorithmic financial intelligence and multi-market scanner platform providing real-time technical analysis across US equities, Indian markets, gold, and forex.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://worldnewsguru.us" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/World%20News%20Guru/wnglogo-black-1024-330.png?raw=true" alt="World News Guru" width="140" /><br />
           <strong>World News Guru</strong>
         </a>
       </td>
       <td><strong>Global Journalism</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://worldnewsguru.us">worldnewsguru.us</a><br />
-        Premier digital journalism and international news publication delivering breaking world news, geopolitical reporting, financial coverage, and investigative journalism.<br />
-        <strong>GSPC Utility:</strong> Reader micro-tipping for investigative journalists, exclusive editorial paywall unlocking, and sponsored article placements purchased via GSPC with on-chain verification.
+        <strong>Website:</strong> <a href="https://worldnewsguru.us" target="_blank" rel="noopener noreferrer">worldnewsguru.us</a><br />
+        A premier digital media platform that aggregates news from multiple verified global sources in a comprehensive, fast, and unbiased manner.
       </td>
     </tr>
     <tr>
       <td align="center">
-        <a href="https://globalcricinfo.com" target="_blank">
-          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Cric%20Info/global%20cric%20info%20logo%20black.png?raw=true" alt="Global Cric Info" width="130" /><br />
+        <a href="https://globalcricinfo.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Cric%20Info/global%20cric%20info%20logo%20black.png?raw=true" alt="Global Cric Info" width="140" /><br />
           <strong>Global Cric Info</strong>
         </a>
       </td>
-      <td><strong>Sports Media & Analytics</strong></td>
+      <td><strong>Sports Media</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://globalcricinfo.com">globalcricinfo.com</a><br />
-        International sports media platform covering worldwide cricket tournaments (ICC, IPL, BBL, PSL, Ashes) with real-time ball-by-ball commentary, match telemetry, and statistics.<br />
-        <strong>GSPC Utility:</strong> Powers interactive cricket fan engagement, fantasy tournament prediction leagues, and sports analytics subscriptions settled exclusively in GSPC.
+        <strong>Website:</strong> <a href="https://globalcricinfo.com" target="_blank" rel="noopener noreferrer">globalcricinfo.com</a><br />
+        An international sports media portal offering real-time ball-by-ball updates on cricket scores, breaking tournament news, schedules, and player telemetry.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://globalsocialpost.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Social%20Post/globalsocialpost-black-1024-300.png?raw=true" alt="Global Social Post" width="140" /><br />
+          <strong>Global Social Post</strong>
+        </a>
+      </td>
+      <td><strong>Social Automation</strong></td>
+      <td>
+        <strong>Website:</strong> <a href="https://globalsocialpost.com" target="_blank" rel="noopener noreferrer">globalsocialpost.com</a><br />
+        An omni-channel social media automation platform that allows businesses and agencies to design, schedule, and automate posts across multiple channels simultaneously.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://globalsmtpmail.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Smtp%20Mail/gsm-black-1024-320.png?raw=true" alt="Global SMTP Mail" width="140" /><br />
+          <strong>Global SMTP Mail</strong>
+        </a>
+      </td>
+      <td><strong>Email Infrastructure</strong></td>
+      <td>
+        <strong>Website:</strong> <a href="https://globalsmtpmail.com" target="_blank" rel="noopener noreferrer">globalsmtpmail.com</a><br />
+        A reliable, high-throughput email delivery service and enterprise SMTP relay infrastructure that guarantees superior inbox deliverability rates.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://globalintelinvest.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Global%20Intel%20Invest/glob_int_inv_black_logo.png?raw=true" alt="Global Intel Invest" width="140" /><br />
+          <strong>Global Intel Invest</strong>
+        </a>
+      </td>
+      <td><strong>Financial Insights</strong></td>
+      <td>
+        <strong>Website:</strong> <a href="https://globalintelinvest.com" target="_blank" rel="noopener noreferrer">globalintelinvest.com</a><br />
+        An intelligent investment research platform delivering real-time economic data, institutional market analysis, and actionable macroeconomic insights.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://traffixpert.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Traffixpert/traffixpert-black-1024-410.png?raw=true" alt="Traffixpert" width="140" /><br />
+          <strong>Traffixpert</strong>
+        </a>
+      </td>
+      <td><strong>AdTech & Traffic</strong></td>
+      <td>
+        <strong>Website:</strong> <a href="https://traffixpert.com" target="_blank" rel="noopener noreferrer">traffixpert.com</a><br />
+        A performance digital marketing network that connects web publishers and advertisers to drive high-converting, targeted organic and paid traffic.
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://tryyourluck.today" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.com/gamgsp/globaldata/blob/main/Try%20Your%20Luck/tryyourluck-logo.png?raw=true" alt="Try Your Luck" width="140" /><br />
+          <strong>Try Your Luck</strong>
+        </a>
+      </td>
+      <td><strong>Digital Goods & Draws</strong></td>
+      <td>
+        <strong>Website:</strong> <a href="https://tryyourluck.today" target="_blank" rel="noopener noreferrer">tryyourluck.today</a><br />
+        A modern digital marketplace offering $1.00 utility software and digital downloads bundled with bonus tickets into provably fair prize draws.
       </td>
     </tr>
   </tbody>
 </table>
+
 
 ---
 
