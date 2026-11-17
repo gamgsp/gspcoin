@@ -99,21 +99,21 @@ The `gspcdaemon.sh` script automates the complete setup of a **GSPCoin (`gspcoin
 **When to use:** Use this on any standard Linux VPS or dedicated server where you are logged in as a regular user with `sudo` privileges (or as `root` with `curl` installed).
 
 ```bash
-curl -fsSL [https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh](https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh) -o gspcdaemon.sh && chmod +x gspcdaemon.sh && sudo ./gspcdaemon.sh && rm -f gspcdaemon.sh
+curl -fsSL https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh -o gspcdaemon.sh && chmod +x gspcdaemon.sh && sudo ./gspcdaemon.sh && rm -f gspcdaemon.sh
 ```
 
 #### 2. Minimal Linux Fallback (No `curl` or `sudo` Pre-Installed)
 **When to use:** Use this on bare-bones cloud images (such as minimal Ubuntu/Debian containers or fresh VPS installs) where `curl` or `sudo` is missing and you are logged in directly as `root`.
 
 ```bash
-wget -qO gspcdaemon.sh [https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh](https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh) && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
+wget -qO gspcdaemon.sh https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
 ```
 
 #### 3. macOS (Intel & Apple Silicon M1/M2/M3/M4)
 **When to use:** Use this in your macOS Terminal. Run it as your **normal macOS user** (do **not** prefix the command with `sudo`; the script will prompt for your password only when copying binaries into `/usr/local/bin`).
 
 ```bash
-curl -fsSL [https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh](https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh) -o gspcdaemon.sh && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
+curl -fsSL https://raw.githubusercontent.com/gamgsp/gspcoin/master/gspcdaemon.sh -o gspcdaemon.sh && chmod +x gspcdaemon.sh && ./gspcdaemon.sh && rm -f gspcdaemon.sh
 ```
 
 > **Note for Apple Silicon Macs:** If the `v2.2.2` release provides an Intel (`x86_64`) macOS binary, ensure Rosetta 2 is installed (`softwareupdate --install-rosetta --agree-to-license`) before running the script.

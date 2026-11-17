@@ -49,20 +49,32 @@ echo "[0/7] Installing required packages (wget, unzip, tar)..."
 apt-get update -qq
 apt-get install -y -qq wget unzip tar
 
-# 1. Create a swap of 2GB
-echo "[1/7] Checking and creating 2GB swap file..."
-if swapon --show | grep -q '/swapfile'; then
-    echo "Swapfile already exists and is active. Skipping creation."
-else
-    fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
-    chmod 600 /swapfile
-    mkswap /swapfile
-    swapon /swapfile
-    if ! grep -q '/swapfile' /etc/fstab; then
-        echo '/swapfile none swap sw 0 0' >> /etc/fstab
-    fi
-    echo "2GB Swap created and enabled."
-fi
+# 1. Swap Setup (Interactive Option)
+echo "[1/7] Checking Swap memory configuration..."
+read -r -p "Do you want to configure a 2GB swap file? [y/N]: " PROMPT_SWAP
+case "$PROMPT_SWAP" in
+    [yY][eE][sS]|[yY])
+        if swapon --show | grep -q '/swapfile'; then
+            echo "Swapfile (/swapfile) already exists and is active. Skipping creation."
+        else
+            echo "Creating and activating 2GB swap file..."
+            if fallocate -l 2G /swapfile 2>/dev/null || dd if=/dev/zero of=/swapfile bs=1M count=2048; then
+                chmod 600 /swapfile
+                mkswap /swapfile
+                swapon /swapfile || echo "Warning: swapon failed (environment might restrict swap)."
+                if ! grep -q '/swapfile' /etc/fstab; then
+                    echo '/swapfile none swap sw 0 0' >> /etc/fstab
+                fi
+                echo "2GB Swap created and configured."
+            else
+                echo "Warning: Failed to allocate /swapfile. Skipping swap setup."
+            fi
+        fi
+        ;;
+    *)
+        echo "Skipping swap configuration as requested."
+        ;;
+esac
 
 # Prepare temporary working directory
 mkdir -p "$WORK_DIR"
