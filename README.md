@@ -269,7 +269,7 @@ sudo make install
 - **Official Website:** [https://gspcoin.us](https://gspcoin.us)
 - **Primary Block Explorer:** [https://explorer.gspcoin.us](https://explorer.gspcoin.us)
 - **Secondary Explorer Mirror:** [https://explorer.globalsocialpost.com](https://explorer.globalsocialpost.com)
-- **GSPC P2P Escrow Exchange:** [https://exchange.gspcoin.us](https://exchange.gspcoin.us)
+- **GSPC P2P Escrow Exchange:** [https://gspcexchange.com](https://gspcexchange.com)
 - **Official Whitepaper:** [https://gspcoin.us/whitepaper](https://gspcoin.us/whitepaper)
 - **Documentation & Knowledge Centre:** [https://gspcoin.us/docs](https://gspcoin.us/docs)
 - **GitHub Repository:** [https://github.com/gamgsp/gspcoin](https://github.com/gamgsp/gspcoin)
@@ -341,14 +341,14 @@ Proudly engineered, operated, and maintained under the digital infrastructure an
     </tr>
     <tr>
       <td align="center">
-        <a href="https://exchange.gspcoin.us" target="_blank" rel="noopener noreferrer">
+        <a href="https://gspcexchange.com" target="_blank" rel="noopener noreferrer">
           <img src="https://github.com/gamgsp/globaldata/blob/main/GSPC%20Exchange/gspcexc-dark-logo.png?raw=true" alt="GSPC Exchange" width="140" /><br />
           <strong>GSPC Exchange</strong>
         </a>
       </td>
       <td><strong>DeFi & P2P Trading</strong></td>
       <td>
-        <strong>Website:</strong> <a href="https://exchange.gspcoin.us" target="_blank" rel="noopener noreferrer">exchange.gspcoin.us</a><br />
+        <strong>Website:</strong> <a href="https://gspcexchange.com" target="_blank" rel="noopener noreferrer">gspcexchange.com</a><br />
         A secure, non-custodial P2P cryptocurrency escrow exchange featuring automated order matching, multi-chain settlement, and zero middleman risk.
       </td>
     </tr>
