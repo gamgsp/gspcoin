@@ -2,7 +2,7 @@
 
 In the fast-evolving digital asset landscape, decentralized traders and institutions require a seamless bridge between self-custodial security, fair order matching, and lightning-fast cross-chain settlement.
 
-Today, we are thrilled to spotlight **[GSPC Exchange](https://exchange.gspcoin.us)**—a state-of-the-art P2P cryptocurrency escrow platform engineered to eliminate counterparty risk while guaranteeing non-custodial protection across 21 major blockchain networks.
+Today, we are thrilled to spotlight **[GSPC Exchange](https://gspcexchange.com)**—a state-of-the-art P2P cryptocurrency escrow platform engineered to eliminate counterparty risk while guaranteeing non-custodial protection across 21 major blockchain networks.
 
 Whether you are trading native **GSPCoin (GSPC)**, **Bitcoin (BTC)**, **Ethereum (ETH)**, **Solana (SOL)**, or stablecoins like **USDT** and **USDC**, GSPC Exchange ensures every transaction is backed by automated escrow settlement and transparent on-chain security.
 
@@ -46,7 +46,7 @@ GSPC Exchange provides native, non-custodial escrow trading across 21 premier di
 
 ### Getting Started in 3 Steps
 
-1. **Create an Account**: Register securely at **[exchange.gspcoin.us](https://exchange.gspcoin.us)**.
+1. **Create an Account**: Register securely at **[gspcexchange.com](https://gspcexchange.com)**.
 2. **Deposit Assets**: Navigate to your **Wallet Dashboard** to generate your unique multi-chain deposit address.
 3. **Trade with Escrow Protection**: Place Limit or Market orders across 100+ active pairs with real-time execution and automated escrow safety.
 
@@ -54,8 +54,8 @@ GSPC Exchange provides native, non-custodial escrow trading across 21 premier di
 
 ### Official Resources
 
-- **Exchange**: [https://exchange.gspcoin.us](https://exchange.gspcoin.us)
-- **Swap Terminal**: [https://exchange.gspcoin.us/swap](https://exchange.gspcoin.us/swap)
-- **Interactive API Docs**: [https://exchange.gspcoin.us/api-docs](https://exchange.gspcoin.us/api-docs)
+- **Exchange**: [https://gspcexchange.com](https://gspcexchange.com)
+- **Swap Terminal**: [https://gspcexchange.com/swap](https://gspcexchange.com/swap)
+- **Interactive API Docs**: [https://gspcexchange.com/api-docs](https://gspcexchange.com/api-docs)
 - **Free Embeddable Swap Widget**: [https://gamgsp.github.io/gspc-swap-widget/](https://gamgsp.github.io/gspc-swap-widget/)
 - **GSPCoin Core**: [https://gspcoin.us](https://gspcoin.us)
